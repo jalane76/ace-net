@@ -10,6 +10,16 @@
 		"args": { "VARIANT": "3" }
 	},
 
+	// Runtime arguments
+	"runArgs": [
+		"--runtime=nvidia"
+	],
+
+	// Remote Docker settings
+	"workspaceMount": "source=/home/jesse/git/ace-net,target=/workspace,type=bind,consistency=cached",
+	
+	"workspaceFolder": "/workspace"
+
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash",
@@ -31,11 +41,6 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python"
-	],
-
-	// Runtime arguments
-	"runArgs": [
-		"--runtime=nvidia"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

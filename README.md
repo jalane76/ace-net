@@ -10,6 +10,8 @@ Project Organization
     ├── Makefile                    <- Makefile with commands like `make data` or `make train`
     ├── README.md                   <- The top-level README for developers using this project.
     ├── data
+    │   ├── models                  <- Trained and serialized models, model predictions, or model summaries
+    │   ├── results                 <- Intermediate results files.
     │   ├── external                <- Data from third party sources.
     │   ├── interim                 <- Intermediate data that has been transformed.
     │   ├── processed               <- The final, canonical data sets for modeling.
@@ -21,8 +23,6 @@ Project Organization
     │                                  generated with `pip freeze > requirements.txt`
     │
     ├── docs                        <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models                      <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks                   <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                                  the creator's initials, and a short `-` delimited description, e.g.

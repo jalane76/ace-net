@@ -15,7 +15,7 @@ RUN apt-get update \
 
     # Install Python dependencies
     && pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp
+    && rm -rf /tmp/pip-tmp \
 
     # Clean up
     && apt-get autoremove -y \

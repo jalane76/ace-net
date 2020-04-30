@@ -83,12 +83,11 @@ For GPU acceleration:
 Carefully consider where you will clone the repository since it will be bound as the container volume and so must be available to Docker to bind.
 
 ```
-$ git clone https://github.com/jalane76/ace-net.git <path/to/ace-net/repo>
-$ export ACE_NET_HOME=<path/to/ace-net/repo>
+$ git clone https://github.com/jalane76/ace-net.git 
+$ export ACE_NET_HOME=/absolute/path/to/ace-net
 
 $ cd ${ACE_NET_HOME}/docker
 $ docker pull jalane76/ace-net
-$ chmod +x run-container.sh
 $ ./run-container
 ```
 

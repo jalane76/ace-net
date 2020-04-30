@@ -9,7 +9,7 @@ Project Organization
     ├── LICENSE
     ├── Makefile                    <- Makefile with commands like `make data` or `make train`
     ├── README.md                   <- The top-level README for developers using this project.
-    ├── data
+    ├── data (HIDDEN)               <- Hidden from Git, but files are in a public Google Drive (see below)
     │   ├── models                  <- Trained and serialized models, model predictions, or model summaries
     │   ├── results                 <- Intermediate results files.
     │   ├── external                <- Data from third party sources.
@@ -60,6 +60,3 @@ Project Organization
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 
 --------
-
-- [VS Code Docs - Advanced Containers](https://code.visualstudio.com/docs/remote/containers-advanced)
-- [VS Code Docs - Tips and Tricks](https://code.visualstudio.com/docs/remote/troubleshooting#_configuring-key-based-authentication)

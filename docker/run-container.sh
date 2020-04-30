@@ -1,6 +1,8 @@
 #/bin/bash
 
-# Run with GPU support  TODO: I should change the mapped directory to an env var
+# TODO: I should probably modify this to take GPU support as an argument
+
+# Run with GPU support
 docker run -d --runtime=nvidia --name=ace-net --volume $ACE_NET_HOME:/workspace --entrypoint= jalane76/ace-net:latest tail -f /dev/null
 
 # Uncomment to run without GPU support

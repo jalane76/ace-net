@@ -1,10 +1,13 @@
-ace-net
-==============================
+# ace-net
 
-Average Causal Effect on Neural Nets
+## Overview
 
-Project Organization
-------------
+The purpose of this repo is twofold:
+
+1. To reproduce some of the results from the paper [Neural Network Attributions: A Causal Perspective](https://arxiv.org/abs/1902.02302) and [repository](https://github.com/Piyushi-0/ACE).
+2. To further explore using *average causal effect* (ACE) to analyze neural networks, particularly in adversarial settings.
+
+## Project Organization
 
     ├── LICENSE
     ├── Makefile                    <- Makefile with commands like `make data` or `make train`
@@ -60,3 +63,33 @@ Project Organization
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 
 --------
+
+## Installation and Usage
+```diff
+- TODO: Add manual installation instructions.
+````
+### Prerequisites
+
+* [Git](https://git-scm.com/downloads)
+* [Docker](https://www.docker.com/products/docker-desktop)
+
+For GPU acceleration:
+
+* Use a Linux host for the Docker container.
+* [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
+
+### Clone, Pull, and Run
+
+Carefully consider where you will clone the repository since it will be bound as the container volume and so must be available to Docker to bind.
+
+```
+$ git clone https://github.com/jalane76/ace-net.git <path/to/ace-net/repo>
+$ export ACE_NET_HOME=<path/to/ace-net/repo>
+
+$ cd ${ACE_NET_HOME}/docker
+$ docker pull jalane76/ace-net
+$ chmod +x run-container.sh
+$ ./run-container
+```
+
+The run script assumes that the host has been set up with GPU support.  Running CPU-only is as simple as editing [run-container.sh](docker/run-container.sh) to comment out the GPU support line and uncomment the no GPU support line.

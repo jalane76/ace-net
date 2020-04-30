@@ -65,8 +65,9 @@ The purpose of this repo is twofold:
 --------
 
 ## Installation and Usage
- [ ] Add manual installation instructions.
-
+```diff
+- TODO: Add manual installation instructions.
+````
 ### Prerequisites
 
 * [Git](https://git-scm.com/downloads)

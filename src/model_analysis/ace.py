@@ -4,8 +4,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
+from tqdm import tqdm, trange
 
-def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag'):
+from utils import hessian
+
+def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=False):
     # TODO: improve and extend documentation
     ''' Calculates the interventional expectations on a given model and statistics.  (insert link?)
 
@@ -23,49 +26,122 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         :type method" string, optional
 
         :return: A tensor containing the interventional expectations
-        :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'Alpha')
+        :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'I')
     '''
 
+    result_shape = mean.shape + model(mean).shape + interventions.shape
+    result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
+
     if method == 'hessian_full':
-        return __ie_hessian_full(x, f, cov)
+        return __ie_hessian_full(model, mean, cov, interventions, result, progress=progress)
     elif method == 'approximate':
-        return __ie_approx(x, f, cov, epsilon)
+        return __ie_approx(model, mean, cov, interventions, result, epsilon=epsilon, progress=progress)
     else:
-        return __ie_hessian_diag(x, f, cov)
+        return __ie_hessian_diag(model, mean, cov, interventions, result, progress=progress)
 
-def __ie_hessian_full(model, mean, cov, interventions):
-    out_shape = model(mean).shape
+def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
 
-    y = f(x)
-    h = hessian(y, x)
-    result = torch.zeros_like(y)
-    for i in range(len(y)):
-        result[i] = y[i] + 0.5 * torch.trace(torch.matmul(h[i], cov))
+    with tqdm(total=result.size('X') * result.size('Y') * result.size('I'), disable=not progress) as pbar:
+        for x in range(result.size('X')):
+            cov_row = cov[x, :].clone()  # hold out the covariance row we'll intervene upon
+            cov_col = cov[:, x].clone()  # hold out the covariance col we'll intervene upon
+            cov[x, :] = 0.0  # zero covariances for intervened input value
+            cov[:, x] = 0.0
+            
+            
+            for i in range(result.size('I')):
+                inp = mean.clone().detach()
+                inp[x] = interventions[i]
+                inp.requires_grad = True
+
+                output = model(inp)
+                
+                h = hessian(output, inp)
+                
+                for y in range(result.size('Y')):
+                    result[x, y, i] = output[y] + 0.5 * torch.trace(torch.matmul(h[y], cov))
+                    pbar.update(1)
+            
+            cov[x, :] = cov_row  # restore covariances
+            cov[:, x] = cov_col
+
     return result
 
-def __ie_hessian_diag(model, mean, cov, interventions):
-    # TODO: this is not actually the right way to calculate this
-    # TODO: return a proper tensor
-    y = f(x)
-    h = hessian(y, x)
-    result = torch.zeros_like(y)
-    for i in range(len(y)):
-        result[i] = y[i] + 0.5 * torch.trace(torch.matmul(h[i], cov))
+def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
+
+    with tqdm(total=result.size('X') * result.size('Y') * result.size('I'), disable=not progress) as pbar:
+        for y in range(result.size('Y')):
+            for x in range(result.size('X')):
+                for i in range(result.size('I')):
+                    inp = mean.clone().detach()
+                    inp[x] = interventions[i]
+                    inp.requires_grad = True
+                    
+                    output = model(inp)
+
+                    result[x, y, i] = output[y]
+
+                    grad_mask = torch.zeros_like(output)
+                    grad_mask[y] = 1.0
+
+                    grads = autograd.grad(output, inp, grad_outputs=grad_mask, retain_graph=True, create_graph=True)
+
+                    for xx in range(result.size('X')):
+                        if xx == x:
+                            continue
+                    
+                        cov_val = cov[x, y].clone()  # hold out the covariance value we'll intervene upon
+                        cov[x, y] = 0.0  # zero covariances for intervened input value
+
+                        hess_mask = torch.zeros_like(inp)
+                        hess_mask[xx] = 1.0
+
+                        h, = autograd.grad(grads, inp, grad_outputs=hess_mask, retain_graph=True, create_graph=False)
+                        result[x, y, i] = result[x, y, i] + 0.5 * torch.sum(h * cov[xx])
+
+                        cov[x, y] = cov_val  # restore held out covariance value
+                    pbar.update(1)
+
     return result
 
-def __ie_approx(model, mean, cov, interventions, epsilon=0.000001):
-    e, v = torch.symeig(cov, eigenvectors=True)
-    
-    v = epsilon * e.sqrt() * v
-    v1 = x - v
-    v2 = x + v
-    
-    y = f(x)
-    
-    y_v1 = f(v1) - y
-    y_v1 = torch.sum(y_v1, dim=0)
-    
-    y_v2 = f(v2) - y
-    y_v2 = torch.sum(y_v2, dim=0)
-    
-    return y + 0.5 * (y_v1 + y_v2)
+def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progress=False):
+    with tqdm(total=result.size('X') * result.size('I'), disable=not progress) as pbar:
+        for x in range(result.size('X')):
+            mean_x = mean[x].clone()    # hold out the mean value we'll intervene upon
+            
+            cov_row = cov[x, :].clone()  # hold out the covariance row we'll intervene upon
+            cov_col = cov[:, x].clone()  # hold out the covariance col we'll intervene upon
+            cov[x, :] = 0.0  # zero covariances for intervened input value
+            cov[:, x] = 0.0
+
+            e, v = torch.symeig(cov, eigenvectors=True)
+            e[e < 0.0] = 0.0    # Just in case there are numerical shenanigans
+
+            v = epsilon * e.sqrt() * v
+            
+            for i in range(result.size('I')):
+                mean[x] = interventions[i]
+
+                v1 = mean - v
+                v2 = mean + v
+
+                output_mean = model(mean)
+
+                output_v1 = model(v1)
+                output_v1 -= output_mean
+                output_v1 = output_v1.sum(dim=0)
+                
+                output_v2 = model(v2)
+                output_v2 -= output_mean
+                output_v2 = output_v2.sum(dim=0)
+
+                result[x, :, i] = output_mean + 0.5 * (output_v1 + output_v2)
+
+                pbar.update(1)
+
+            mean[x] = mean_x  # restore held out mean value
+
+            cov[x, :] = cov_row  # restore covariances
+            cov[:, x] = cov_col
+
+    return result

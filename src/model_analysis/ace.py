@@ -6,10 +6,32 @@ import torch.optim as optim
 import numpy as np
 from tqdm import tqdm, trange
 
-from utils import hessian
+from utils.utils import hessian
+
+def average_causal_effect(interventional_expectation):
+    ''' Calculates the average causal effect from the interventional expectations.
+
+        :param interventional_expectation: The interventional expectations on a given model and statistics.
+        :type interventional_expectation: Named torch.Tensor with dimension names ('X', 'Y', 'I')
+
+        :return: A tensor containing the average causal effects.
+        :rtype: Named torch.Tensor with the same shape as the input tensor and dimension names ('X', 'Y', 'I')
+    '''
+    size_x = interventional_expectation.size('X')
+    size_y = interventional_expectation.size('Y')
+    names = interventional_expectation.names
+    interventional_expectation = interventional_expectation.rename(None)
+
+    result = torch.zeros_like(interventional_expectation)
+    for x in range(size_x):
+        for y in range(size_y):
+            result[x, y, :] = interventional_expectation[x, y, :] - torch.mean(interventional_expectation[x, y, :])
+
+    interventional_expectation = interventional_expectation.rename(*names)
+
+    return result
 
 def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=False):
-    # TODO: improve and extend documentation
     ''' Calculates the interventional expectations on a given model and statistics.  (insert link?)
 
         :param model: A function or trained PyTorch model
@@ -90,16 +112,16 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                         if xx == x:
                             continue
                     
-                        cov_val = cov[x, y].clone()  # hold out the covariance value we'll intervene upon
-                        cov[x, y] = 0.0  # zero covariances for intervened input value
+                        cov_val = cov[xx, x].clone()  # hold out the covariance value we'll intervene upon
+                        cov[xx, x] = 0.0  # zero covariances for intervened input value
 
                         hess_mask = torch.zeros_like(inp)
                         hess_mask[xx] = 1.0
 
                         h, = autograd.grad(grads, inp, grad_outputs=hess_mask, retain_graph=True, create_graph=False)
-                        result[x, y, i] = result[x, y, i] + 0.5 * torch.sum(h * cov[xx])
+                        result[x, y, i] = result[x, y, i] + torch.sum(0.5 * h * cov[xx])
 
-                        cov[x, y] = cov_val  # restore held out covariance value
+                        cov[xx, x] = cov_val  # restore held out covariance value
                     pbar.update(1)
 
     return result

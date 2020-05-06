@@ -1,12 +1,7 @@
 #! /usr/bin/env python3
 
-# TODO: remove eventually when the package has been made installable.
-import sys
-sys.path.insert(0, '../utils')
-# END TODO
-
-from utils import jacobian
-from utils import hessian
+from utils.utils import jacobian
+from utils.utils import hessian
 
 import torch
 import numpy as np

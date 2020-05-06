@@ -1,21 +1,12 @@
 #! /usr/bin/env python3
 
-# TODO: remove eventually when the package has been made installable.
-import sys
-sys.path.insert(0, '../model_analysis')
-sys.path.insert(1, '../utils')
-# END TODO
-
-from ace import interventional_expectation
+from model_analysis.ace import interventional_expectation
 
 import torch
 import numpy as np
 
 def f(x):                                                                                             
     return x ** 2
-
-#TODO: remove after testing is fully set up
-#torch.set_printoptions(precision=20, linewidth=180)
 
 np.random.seed(435537698)
 

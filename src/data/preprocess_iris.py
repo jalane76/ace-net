@@ -11,6 +11,10 @@ import torch
 @click.argument('output_path', type=click.Path())
 def main(input_filepath, output_path):
 
+    seed = 1
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
     dataset = pd.read_csv(input_filepath)
     dataset = pd.get_dummies(dataset, columns=['species']) # One Hot Encoding
     values = list(dataset.columns.values)
@@ -36,11 +40,18 @@ def main(input_filepath, output_path):
     x_tensor = torch.Tensor(x_values)
     y_tensor = torch.Tensor(y_values)
 
+    # Calculate observational statistics
+    covariance = torch.Tensor(np.cov(x_values, rowvar=False))
+    means = torch.Tensor(np.mean(x_values, axis=0))
+
+
     # Save data
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     torch.save(x_tensor, os.path.join(output_path, 'x_train.pt'))
     torch.save(y_tensor, os.path.join(output_path, 'y_train.pt'))
+    torch.save(covariance, os.path.join(output_path, 'covariance.pt'))
+    torch.save(means, os.path.join(output_path, 'means.pt'))
 
 if __name__ == '__main__':
     main()

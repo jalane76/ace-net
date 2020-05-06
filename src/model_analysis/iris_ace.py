@@ -17,7 +17,7 @@ class neural_network(nn.Module):
         x = F.relu(self.hidden(x))
         return self.out(x)
 
-def wrap_model(model):
+def wrap_model_activation(model):
     def softmax(input):
         return F.softmax(model(input), dim=-1)
     return softmax
@@ -30,11 +30,12 @@ def wrap_model(model):
 @click.argument('output_path', type=click.Path())
 def main(model_filepath, covariance_filepath, means_filepath, output_path):
     model = torch.load(model_filepath)
+    wrapped_model = wrap_model_activation(model)  # Iris uses a softmax activation, but I didn't want to build that assumption in
     cov = torch.load(covariance_filepath)
     mean = torch.load(means_filepath)
 
     interventions = np.linspace(0, 1, 1000)
-    ie = ace.interventional_expectation(wrap_model(model), mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
+    ie = ace.interventional_expectation(wrapped_model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
     avg_ce = ace.average_causal_effect(ie)
 
     if not os.path.exists(output_path):

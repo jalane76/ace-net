@@ -59,10 +59,9 @@ def main(ace_filepath, interventions_filepath, output_path):
                 plt.plot(np.array([0.6874999403953552]*1000),np.linspace(-3,3,1000),"--")
             if output_index == 2:	
                 plt.plot(np.array([0.6874999403953552]*1000),np.linspace(-3,3,1000),"--")
-            plot_name = '{}.png'.format(titles[output_index])
-            print('Saving {} ...'.format(plot_name))
-            plt.savefig(os.path.join(output_path, plot_name))
-            print('Saved {}'.format(plot_name))
+        plot_name = '{}.png'.format(titles[output_index])
+        plt.savefig(os.path.join(output_path, plot_name))
+        print('Saved {}'.format(plot_name))
 
 if __name__ == '__main__':
     main()

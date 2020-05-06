@@ -11,6 +11,10 @@ import torch
 @click.argument('output_path', type=click.Path())
 def main(input_filepath, output_path):
 
+    seed = 1
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
     dataset = pd.read_csv(input_filepath)
     dataset = pd.get_dummies(dataset, columns=['species']) # One Hot Encoding
     values = list(dataset.columns.values)

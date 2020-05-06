@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 import click
 import numpy as np
+import os
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import torch
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('x_train_filepath', type=click.Path())
-@click.argument('y_train_filepath', type=click.Path())
-def main(input_filepath, x_train_filepath, y_train_filepath):
+@click.argument('output_path', type=click.Path())
+def main(input_filepath, output_path):
 
     dataset = pd.read_csv(input_filepath)
     dataset = pd.get_dummies(dataset, columns=['species']) # One Hot Encoding
@@ -34,10 +34,13 @@ def main(input_filepath, x_train_filepath, y_train_filepath):
     y_values = y[indices]
 
     x_tensor = torch.Tensor(x_values)
-    torch.save(x_tensor, x_train_filepath)
-
     y_tensor = torch.Tensor(y_values)
-    torch.save(y_tensor, y_train_filepath)
+
+    # Save data
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    torch.save(x_tensor, os.path.join(output_path, 'x_train.pt'))
+    torch.save(y_tensor, os.path.join(output_path, 'y_train.pt'))
 
 if __name__ == '__main__':
     main()

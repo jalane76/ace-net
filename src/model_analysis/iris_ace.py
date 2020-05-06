@@ -17,6 +17,12 @@ class neural_network(nn.Module):
         x = F.relu(self.hidden(x))
         return self.out(x)
 
+def wrap_model(model):
+    def softmax(input):
+        return F.softmax(model(input), dim=-1)
+    return softmax
+
+
 @click.command()
 @click.argument('model_filepath', type=click.Path(exists=True))
 @click.argument('covariance_filepath', type=click.Path(exists=True))
@@ -28,16 +34,17 @@ def main(model_filepath, covariance_filepath, means_filepath, output_path):
     mean = torch.load(means_filepath)
 
     interventions = np.linspace(0, 1, 1000)
-    ie = ace.interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
+    ie = ace.interventional_expectation(wrap_model(model), mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
     avg_ce = ace.average_causal_effect(ie)
 
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
     # Remove names for now since named tensors aren't serializable
-    ie = ie.rename(None)
-    avg_ce = avg_ce.rename(None)
-    
+    # Also detach grads so they are not saved.
+    ie = ie.rename(None).detach()
+    avg_ce = avg_ce.rename(None).detach()
+
     torch.save(ie, os.path.join(output_path, 'interventional_expectations.pt'))
     torch.save(avg_ce, os.path.join(output_path, 'average_causal_effects.pt'))
     torch.save(torch.Tensor(interventions), os.path.join(output_path, 'interventions.pt'))

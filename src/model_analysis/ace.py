@@ -18,7 +18,7 @@ def average_causal_effect(interventional_expectation):
         :rtype: Named torch.Tensor with the same shape as the input tensor and dimension names ('X', 'Y', 'I')
     '''
 
-    return interventional_expectation - torch.mean(interventional_expectation, 0)
+    return interventional_expectation - torch.mean(interventional_expectation, 0, keepdim=True)
 
 def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=False):
     ''' Calculates the interventional expectations on a given model and statistics.  (insert link?)

@@ -1,3 +1,4 @@
+click==7.1.2
 dvc[gdrive]==0.93.0
 numdifftools==0.9.39
 numpy==1.18.1

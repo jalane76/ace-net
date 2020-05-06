@@ -1,0 +1,18 @@
+md5: bfc480886413852d21347e3db4fb8de4
+cmd: python iris_ace.py /workspace/data/models/iris/from-paper/iris_double_model_8
+  /workspace/data/processed/iris/covariance.pt /workspace/data/processed/iris/means.pt
+  /workspace/data/results/iris/
+wdir: ../model_analysis
+deps:
+- md5: 99c32f956f937eaf4d20c0c756c9f1ce
+  path: iris_ace.py
+- md5: 8305ce28f4eecc04c38efd350e4dc9ad.dir
+  path: ../../data/processed/iris
+- md5: 64d751ae8eef6462cf04a8204d43e8dc
+  path: ../../data/models/iris/from-paper/iris_double_model_8
+outs:
+- md5: 54e2a2394b2776ea7a223053842002f6.dir
+  path: ../../data/results/iris
+  cache: true
+  metric: false
+  persist: false

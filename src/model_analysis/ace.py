@@ -6,10 +6,21 @@ import torch.optim as optim
 import numpy as np
 from tqdm import tqdm, trange
 
-from utils import hessian
+from utils.utils import hessian
+
+def average_causal_effect(interventional_expectation):
+    ''' Calculates the average causal effect from the interventional expectations.
+
+        :param interventional_expectation: The interventional expectations on a given model and statistics.
+        :type interventional_expectation: Named torch.Tensor with dimension names ('X', 'Y', 'I')
+
+        :return: A tensor containing the average causal effects.
+        :rtype: Named torch.Tensor with the same shape as the input tensor and dimension names ('X', 'Y', 'I')
+    '''
+
+    return interventional_expectation - torch.mean(interventional_expectation, 0)
 
 def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=False):
-    # TODO: improve and extend documentation
     ''' Calculates the interventional expectations on a given model and statistics.  (insert link?)
 
         :param model: A function or trained PyTorch model

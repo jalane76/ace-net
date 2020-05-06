@@ -23,3 +23,5 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND=dialog
+
+ENV PYTHONPATH "${PYTHONPATH}:/workspace/src"

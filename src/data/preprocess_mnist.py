@@ -43,7 +43,7 @@ def main(output_path):
     torch.save(covariance, os.path.join(output_path, 'covariance.pt'))
     torch.save(means, os.path.join(output_path, 'means.pt'))
 
-    with open(os.path.join(output_path, 'clip_values.json'), 'w', newline='') as f:
+    with open(os.path.join(output_path, 'clip_values.json'), 'w') as f:
         json.dump(clip_values, f)
 
 if __name__ == '__main__':

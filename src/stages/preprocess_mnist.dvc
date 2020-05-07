@@ -1,0 +1,12 @@
+md5: cd44cfbcd42bb074a738c5d947aec3f4
+cmd: python preprocess_mnist.py /workspace/data/processed/mnist/
+wdir: ../data
+deps:
+- md5: 1fadef5234fc2834ed744726ed6634e2
+  path: preprocess_mnist.py
+outs:
+- md5: bcd69500cb3343b3dd5b2c393d223870.dir
+  path: ../../data/processed/mnist
+  cache: true
+  metric: false
+  persist: false

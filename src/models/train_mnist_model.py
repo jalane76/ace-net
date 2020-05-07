@@ -49,7 +49,8 @@ def main(x_train_filepath, y_train_filepath, clip_values_filepath, output_path):
     # Save data
     if not os.path.exists(output_path):
         os.makedirs(output_path)
-    classifier.save(os.path.join(output_path, 'mnist_art_classifier.pt'))
+    torch.save(model, os.path.join(output_path, 'mnist_art_model.pt'))
+    torch.save(optimizer, os.path.join(output_path, 'mnist_art_optimizer.pt'))
 
 if __name__ == '__main__':
     main()

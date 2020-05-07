@@ -51,7 +51,8 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'I')
     '''
 
-    result_shape = mean.shape + model(mean).shape + interventions.shape
+    flat_mean = mean.reshape(-1)
+    result_shape = flat_mean.shape + model(mean).shape + interventions.shape
     result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
 
     if method == 'hessian_full':
@@ -72,8 +73,15 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
             
             
             for i in range(result.size('I')):
-                inp = mean.clone().detach()
+                inp = mean.clone().detach()   # clone so we don't change the original mean
+
+                inp_shape = inp.shape  # flatten to iterate through interventions
+                inp = inp.reshape(-1)
+
                 inp[x] = interventions[i]
+
+                inp = inp.reshape(inp_shape)  # reshape back to original shape for input to model
+
                 inp.requires_grad = True
 
                 output = model(inp)
@@ -95,8 +103,15 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
         for y in range(result.size('Y')):
             for x in range(result.size('X')):
                 for i in range(result.size('I')):
-                    inp = mean.clone().detach()
+                    inp = mean.clone().detach()   # clone so we don't change the original mean
+
+                    inp_shape = inp.shape  # flatten to iterate through interventions
+                    inp = inp.reshape(-1)
+
                     inp[x] = interventions[i]
+
+                    inp = inp.reshape(inp_shape)  # reshape back to original shape for input to model
+
                     inp.requires_grad = True
                     
                     output = model(inp)
@@ -129,7 +144,12 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
 def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progress=False):
     with tqdm(total=result.size('X') * result.size('I'), disable=not progress) as pbar:
         for x in range(result.size('X')):
+            mean_shape = mean.shape  # flatten to iterate through interventions
+            mean = mean.reshape(-1)
+
             mean_x = mean[x].clone()    # hold out the mean value we'll intervene upon
+
+            mean = mean.reshape(mean_shape)  # reshape back to original shape for input to model
             
             cov_row = cov[x, :].clone()  # hold out the covariance row we'll intervene upon
             cov_col = cov[:, x].clone()  # hold out the covariance col we'll intervene upon
@@ -161,7 +181,12 @@ def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progr
 
                 pbar.update(1)
 
+            mean_shape = mean.shape  # flatten to iterate through interventions
+            mean = mean.reshape(-1)
+
             mean[x] = mean_x  # restore held out mean value
+
+            mean = mean.reshape(mean_shape)  # reshape back to original shape for input to model
 
             cov[x, :] = cov_row  # restore covariances
             cov[:, x] = cov_col

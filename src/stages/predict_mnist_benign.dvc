@@ -1,0 +1,24 @@
+md5: b8cfdf9f822329bdec24a59fa261972d
+cmd: python predict_mnist_benign.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
+  /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
+  /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist
+wdir: ../models
+deps:
+- md5: c3b4efb28d311a1694979a82d3507592
+  path: predict_mnist_benign.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/processed/mnist/clip_values.json
+- md5: cf7d02aec382eb68e72bb0923e6f7eb9
+  path: ../../data/models/mnist/mnist_art_model.pt
+- md5: 497d9356ac99ebfc9abb7d7e2c7326aa
+  path: ../../data/models/mnist/mnist_art_optimizer.pt
+outs:
+- md5: 74264399e31e86e8543e9648c80d9fc9.dir
+  path: ../../data/results/mnist
+  cache: true
+  metric: false
+  persist: false

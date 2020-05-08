@@ -13,8 +13,8 @@ import torch
 @click.argument('output_path', type=click.Path())
 def main(ace_filepath, interventions_filepath, output_path):
 
-    ace = torch.load(ace_filepath)
-    interventions = torch.load(interventions_filepath)
+    ace = torch.load(ace_filepath).cpu()
+    interventions = torch.load(interventions_filepath).cpu()
 
     feature_name = {
         0: "SepalLength",

@@ -51,8 +51,26 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'I')
     '''
 
-    result_shape = mean.shape + model(mean).shape + interventions.shape
+    # Make sure all tensors are on the GPU if it's available, otherwise CPU
+    device = torch.device('cpu')
+    if torch.cuda.is_available():
+        cuda_idx = torch.cuda.current_device()
+        device = torch.device('cuda:{}'.format(cuda_idx))
+    
+    model = model.to(device)
+    mean = mean.to(device)
+    cov = cov.to(device)
+    interventions = interventions.to(device)
+
+    output = model(mean)
+
+    flat_mean = mean.reshape(-1)
+    flat_output = output.reshape(-1)
+    # TODO: remove after debug.
+#    result_shape = flat_mean.shape + flat_output.shape + interventions.shape
+    result_shape = flat_mean.shape + (1,) + interventions.shape
     result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
+    result = result.to(device)
 
     if method == 'hessian_full':
         return __ie_hessian_full(model, mean, cov, interventions, result, progress=progress)
@@ -72,16 +90,24 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
             
             
             for i in range(result.size('I')):
-                inp = mean.clone().detach()
+                inp = mean.clone().detach()   # clone so we don't change the original mean
+
+                inp_shape = inp.shape  # flatten to iterate through interventions
+                inp = inp.reshape(-1)
+
                 inp[x] = interventions[i]
+
+                inp = inp.reshape(inp_shape)  # reshape back to original shape for input to model
+
                 inp.requires_grad = True
 
                 output = model(inp)
                 
                 h = hessian(output, inp)
+                h = h.reshape(output.shape + cov.shape)
                 
                 for y in range(result.size('Y')):
-                    result[x, y, i] = output[y] + 0.5 * torch.trace(torch.matmul(h[y], cov))
+                    result[x, y, i] = output.reshape(-1)[y] + 0.5 * torch.trace(torch.matmul(h[0, y], cov))
                     pbar.update(1)
             
             cov[x, :] = cov_row  # restore covariances
@@ -95,16 +121,26 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
         for y in range(result.size('Y')):
             for x in range(result.size('X')):
                 for i in range(result.size('I')):
-                    inp = mean.clone().detach()
+                    inp = mean.clone().detach()   # clone so we don't change the original mean
+
+                    inp_shape = inp.shape  # flatten to iterate through interventions
+                    inp = inp.reshape(-1)
+
                     inp[x] = interventions[i]
+
+                    inp = inp.reshape(inp_shape)  # reshape back to original shape for input to model
+
                     inp.requires_grad = True
                     
                     output = model(inp)
 
-                    result[x, y, i] = output[y]
+                    result[x, y, i] = output.reshape(-1)[y]
 
                     grad_mask = torch.zeros_like(output)
+                    grad_mask_shape = grad_mask.shape
+                    grad_mask = grad_mask.reshape(-1)
                     grad_mask[y] = 1.0
+                    grad_mask = grad_mask.reshape(grad_mask_shape)
 
                     grads = autograd.grad(output, inp, grad_outputs=grad_mask, retain_graph=True, create_graph=True)
 
@@ -116,12 +152,25 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                         cov[xx, x] = 0.0  # zero covariances for intervened input value
 
                         hess_mask = torch.zeros_like(inp)
+                        hess_mask_shape = hess_mask.shape
+                        hess_mask = hess_mask.reshape(-1)
                         hess_mask[xx] = 1.0
+                        hess_mask = hess_mask.reshape(hess_mask_shape)
 
                         h, = autograd.grad(grads, inp, grad_outputs=hess_mask, retain_graph=True, create_graph=False)
+                        h = h.reshape(-1)
                         result[x, y, i] = result[x, y, i] + torch.sum(0.5 * h * cov[xx])
 
                         cov[xx, x] = cov_val  # restore held out covariance value
+
+                        # detach everything to avoid memory leaks
+                        hess_mask.detach()
+                        h.detach()
+                    
+                    inp.detach()
+                    output.detach()
+                    grad_mask.detach()
+
                     pbar.update(1)
 
     return result
@@ -129,7 +178,12 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
 def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progress=False):
     with tqdm(total=result.size('X') * result.size('I'), disable=not progress) as pbar:
         for x in range(result.size('X')):
+            mean_shape = mean.shape  # flatten to iterate through interventions
+            mean = mean.reshape(-1)
+
             mean_x = mean[x].clone()    # hold out the mean value we'll intervene upon
+
+            mean = mean.reshape(mean_shape)  # reshape back to original shape for input to model
             
             cov_row = cov[x, :].clone()  # hold out the covariance row we'll intervene upon
             cov_col = cov[:, x].clone()  # hold out the covariance col we'll intervene upon
@@ -161,7 +215,12 @@ def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progr
 
                 pbar.update(1)
 
+            mean_shape = mean.shape  # flatten to iterate through interventions
+            mean = mean.reshape(-1)
+
             mean[x] = mean_x  # restore held out mean value
+
+            mean = mean.reshape(mean_shape)  # reshape back to original shape for input to model
 
             cov[x, :] = cov_row  # restore covariances
             cov[:, x] = cov_col

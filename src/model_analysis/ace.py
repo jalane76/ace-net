@@ -51,9 +51,25 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'I')
     '''
 
+    # Make sure all tensors are on the GPU if it's available, otherwise CPU
+    device = torch.device('cpu')
+    if torch.cuda.is_available():
+        cuda_idx = torch.cuda.current_device()
+        device = torch.device('cuda:{}'.format(cuda_idx))
+    
+    model = model.to(device)
+    mean = mean.to(device)
+    cov = cov.to(device)
+    interventions = interventions.to(device)
+
+    output = model(mean)
+
     flat_mean = mean.reshape(-1)
-    result_shape = flat_mean.shape + model(mean).shape + interventions.shape
+    flat_output = output.reshape(-1)
+    result_shape = flat_mean.shape + flat_output.shape + interventions.shape
+    print(result_shape)
     result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
+    result = result.to(device)
 
     if method == 'hessian_full':
         return __ie_hessian_full(model, mean, cov, interventions, result, progress=progress)
@@ -85,6 +101,7 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
                 inp.requires_grad = True
 
                 output = model(inp)
+                output = output.reshape(-1)
                 
                 h = hessian(output, inp)
                 
@@ -116,10 +133,13 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                     
                     output = model(inp)
 
-                    result[x, y, i] = output[y]
+                    result[x, y, i] = output.reshape(-1)[y]
 
                     grad_mask = torch.zeros_like(output)
+                    grad_mask_shape = grad_mask.shape
+                    grad_mask = grad_mask.reshape(-1)
                     grad_mask[y] = 1.0
+                    grad_mask = grad_mask.reshape(grad_mask_shape)
 
                     grads = autograd.grad(output, inp, grad_outputs=grad_mask, retain_graph=True, create_graph=True)
 
@@ -131,9 +151,13 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                         cov[xx, x] = 0.0  # zero covariances for intervened input value
 
                         hess_mask = torch.zeros_like(inp)
+                        hess_mask_shape = hess_mask.shape
+                        hess_mask = hess_mask.reshape(-1)
                         hess_mask[xx] = 1.0
+                        hess_mask = hess_mask.reshape(hess_mask_shape)
 
                         h, = autograd.grad(grads, inp, grad_outputs=hess_mask, retain_graph=True, create_graph=False)
+                        h = h.reshape(-1)
                         result[x, y, i] = result[x, y, i] + torch.sum(0.5 * h * cov[xx])
 
                         cov[xx, x] = cov_val  # restore held out covariance value

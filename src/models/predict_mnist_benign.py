@@ -47,14 +47,16 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
 
     # Evaluate the classifier on benign data
     predictions = classifier.predict(x_test)
-    accuracy = np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)
-    print("Accuracy on benign test examples: {}%".format(accuracy * 100))
+    accuracy = {
+        'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)
+    }
 
     # Save data
     if not os.path.exists(output_path):
         os.makedirs(output_path)
-    #model.save(os.path.join(output_path, 'mnist_art_model.pt'))
-    #optimizer.save(os.path.join(output_path, 'mnist_art_optimizer.pt'))
+    
+    with open(os.path.join(output_path, 'mnist_benign_metrics.json'), 'w') as f:
+        json.dump(accuracy, f)
 
 if __name__ == '__main__':
     main()

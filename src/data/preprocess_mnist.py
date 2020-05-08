@@ -29,6 +29,7 @@ def main(output_path):
     x_obvs = torch.Tensor(x_train)
 
     means = x_obvs.mean(dim=0)
+    means = means.unsqueeze(dim=0)
 
     x_obvs = x_obvs.reshape((-1, 1, 28 * 28))  # flatten so we can get a real covariance matrix
     covariance = torch.Tensor(np.cov(x_obvs[:, 0, :], rowvar=False))

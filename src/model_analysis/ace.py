@@ -62,13 +62,13 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
     cov = cov.to(device)
     interventions = interventions.to(device)
 
-    output = model(mean)
+    output = model(mean).detach()  # detach so we don't hold onto the computational graph through the whole ACE calculation causing a memory leak
+    
 
     flat_mean = mean.reshape(-1)
     flat_output = output.reshape(-1)
     # TODO: remove after debug.
-#    result_shape = flat_mean.shape + flat_output.shape + interventions.shape
-    result_shape = flat_mean.shape + (2,) + interventions.shape
+    result_shape = flat_mean.shape + flat_output.shape + interventions.shape
     result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
     result = result.to(device)
 
@@ -134,7 +134,7 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                     
                     output = model(inp)
 
-                    result[x, y, i] = output.reshape(-1)[y]
+                    result[x, y, i] = output.reshape(-1)[y].clone().detach()
 
                     grad_mask = torch.zeros_like(output)
                     grad_mask_shape = grad_mask.shape
@@ -162,14 +162,6 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
                         result[x, y, i] = result[x, y, i] + torch.sum(0.5 * h * cov[xx])
 
                         cov[xx, x] = cov_val  # restore held out covariance value
-
-                        # detach everything to avoid memory leaks
-                        hess_mask.detach()
-                        h.detach()
-                    
-                    inp.detach()
-                    output.detach()
-                    grad_mask.detach()
 
                     pbar.update(1)
 

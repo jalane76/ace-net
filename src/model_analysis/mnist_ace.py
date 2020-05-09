@@ -33,7 +33,7 @@ def main(model_filepath, clip_values_filepath, covariance_filepath, means_filepa
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    # Remove names for now since named tensors aren't serializable (maybe named tensors are too much trouble)
+    # Remove names for now since named tensors aren't serializable
     # Also detach grads so they are not saved.
     ie = ie.rename(None).detach()
     avg_ce = avg_ce.rename(None).detach()

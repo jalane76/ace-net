@@ -68,7 +68,7 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
     flat_output = output.reshape(-1)
     # TODO: remove after debug.
 #    result_shape = flat_mean.shape + flat_output.shape + interventions.shape
-    result_shape = flat_mean.shape + (1,) + interventions.shape
+    result_shape = flat_mean.shape + (2,) + interventions.shape
     result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
     result = result.to(device)
 

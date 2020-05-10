@@ -1,12 +1,12 @@
-md5: b69ed95f874a88efa0ae882a1c106f6c
+md5: aa33970c080bdc4c1db25eb8973ecf79
 cmd: python mnist_ace.py /workspace/data/models/mnist/mnist_art_model.pt /workspace/data/processed/mnist/clip_values.json
   /workspace/data/processed/mnist/covariance.pt /workspace/data/processed/mnist/means.pt
   /workspace/data/results/mnist_ace
 wdir: ../model_analysis
 deps:
-- md5: 9c20610a4959141d13bce31f98b64d68
+- md5: cea5e1dc9ecd713412efff0fc77f578d
   path: mnist_ace.py
-- md5: 8ece2c37f5857841f16d4d9bfd026bad
+- md5: 96718ca38578b60277d3c3ff136c3c4d
   path: ace.py
 - md5: cf7d02aec382eb68e72bb0923e6f7eb9
   path: ../../data/models/mnist/mnist_art_model.pt
@@ -17,7 +17,7 @@ deps:
 - md5: 687e7425eb78eb794adc69b7566c568c
   path: ../../data/processed/mnist/means.pt
 outs:
-- md5: 7321e3082578b186ee3add5b8094772a.dir
+- md5: f2a20117bce06eb0881becb05b90ff46.dir
   path: ../../data/results/mnist_ace
   cache: true
   metric: false

@@ -25,7 +25,7 @@ def main(model_filepath, clip_values_filepath, covariance_filepath, means_filepa
         clip_values = json.load(f)
     clip_values = (clip_values.get('min_pixel_value'), clip_values.get('max_pixel_value'))
 
-    num_alphas = 3
+    num_alphas = 10
     interventions = torch.Tensor(np.linspace(*clip_values, num_alphas))
     ie = ace.interventional_expectation(model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
     avg_ce = ace.average_causal_effect(ie)

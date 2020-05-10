@@ -19,7 +19,7 @@ cycler==0.10.0
 decorator==4.4.2
 distro==1.5.0
 dpath==2.0.1
-dvc==0.93.0
+dvc==0.94.0
 filelock==3.0.12
 flatten-json==0.1.7
 flufl.lock==3.2

@@ -13,8 +13,9 @@ import torch.optim as optim
 @click.argument('x_train_filepath', type=click.Path(exists=True))
 @click.argument('y_train_filepath', type=click.Path(exists=True))
 @click.argument('clip_values_filepath', type=click.Path(exists=True))
-@click.argument('output_path', type=click.Path())
-def main(x_train_filepath, y_train_filepath, clip_values_filepath, output_path):
+@click.argument('model_output_path', type=click.Path())
+@click.argument('optimizer_output_path', type=click.Path())
+def main(x_train_filepath, y_train_filepath, clip_values_filepath, model_output_path, optimizer_output_path):
 
     seed = 45616451
     np.random.seed(seed)
@@ -47,10 +48,8 @@ def main(x_train_filepath, y_train_filepath, clip_values_filepath, output_path):
     classifier.fit(x_train, y_train, batch_size=64, nb_epochs=5)
 
     # Save data
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    torch.save(model, os.path.join(output_path, 'mnist_art_model.pt'))
-    torch.save(optimizer, os.path.join(output_path, 'mnist_art_optimizer.pt'))
+    torch.save(model, model_output_path)
+    torch.save(optimizer, optimizer_output_path)
 
 if __name__ == '__main__':
     main()

@@ -1,11 +1,11 @@
-md5: 646b2f8654b2df02d76dfb9b03da4b9f
+md5: ba309659114366535f47a7c45405e73a
 cmd: python viz_mnist.py /workspace/data/results/mnist_ace/average_causal_effects.pt
   /workspace/data/results/mnist_ace/interventional_expectations.pt /workspace/data/results/mnist_ace/interventions.pt
   /workspace/data/processed/mnist/x_train.pt /workspace/data/processed/mnist/y_train.pt
-  /workspace/data/results/viz/mnist
+  /workspace/data/viz/mnist
 wdir: ../visualization
 deps:
-- md5: 7010ee1546665e9d76577848e105f48f
+- md5: 436f5d0106daa6ce58095f8ac8dbddd4
   path: viz_mnist.py
 - md5: ef42afd7b37a845c76c80e986154276c
   path: ../../data/results/mnist_ace/average_causal_effects.pt
@@ -19,7 +19,7 @@ deps:
   path: ../../data/processed/mnist/y_train.pt
 outs:
 - md5: e7095833c40f10a7ba638b34953f1a1b.dir
-  path: ../../data/results/viz/mnist
+  path: ../../data/viz/mnist
   cache: true
   metric: false
   persist: false

@@ -1,20 +1,33 @@
-md5: dc4bbb38a69d15eb014f2d61d1c22b8c
-cmd: python iris_ace.py /workspace/data/models/iris/from-paper/iris_double_model_8
+md5: 32f8da1ed3a187d9755d30f37542cb45
+cmd: python /workspace/src/model_analysis/iris_ace.py /workspace/data/models/iris/from-paper/iris_double_model_8
   /workspace/data/processed/iris/covariance.pt /workspace/data/processed/iris/means.pt
-  /workspace/data/results/iris/
+  /workspace/data/results/iris/interventional_expectations.pt /workspace/data/results/iris/average_causal_effects.pt
+  /workspace/data/results/iris/interventions.pt
 wdir: ../model_analysis
 deps:
-- md5: eda236cb480a9465c14aef855b47e7fc
+- md5: 53a171ba32a750c8de06daf4198b5ab9
   path: iris_ace.py
 - md5: 96718ca38578b60277d3c3ff136c3c4d
   path: ace.py
-- md5: a6a1d23822df0b441d0631c791fb2a40.dir
-  path: ../../data/processed/iris
 - md5: 64d751ae8eef6462cf04a8204d43e8dc
   path: ../../data/models/iris/from-paper/iris_double_model_8
+- md5: 6e31db75d3eb571a97ba668c9317ac60
+  path: ../../data/processed/iris/covariance.pt
+- md5: 09df5bccd2a85d480b7467a54912629b
+  path: ../../data/processed/iris/means.pt
 outs:
-- md5: 8d5cc6d6dc13d76f01eb1bdc5479a80e.dir
-  path: ../../data/results/iris
+- md5: 4b38ca8e18574ab3440939e007fb0a3c
+  path: ../../data/results/iris/interventional_expectations.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: 78351cf2fff1c2890007955dca718124
+  path: ../../data/results/iris/average_causal_effects.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: fe62281aeb8c0d2a1b0ab29ba671fe64
+  path: ../../data/results/iris/interventions.pt
   cache: true
   metric: false
   persist: false

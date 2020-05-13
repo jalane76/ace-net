@@ -1,12 +1,45 @@
-md5: eb8e9a941edc35428580fe9d80c16be6
-cmd: python preprocess_mnist.py /workspace/data/processed/mnist/
+md5: 326f93780d12c7d1420cdf1ac69615df
+cmd: python preprocess_mnist.py /workspace/data/processed/mnist/x_train.pt /workspace/data/processed/mnist/y_train.pt
+  /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
+  /workspace/data/processed/mnist/covariance.pt /workspace/data/processed/mnist/means.pt
+  /workspace/data/processed/mnist/clip_values.json
 wdir: ../data
 deps:
-- md5: 3150219d5be349402009efe5eeeebbf2
+- md5: b142fae6fdc511f7cafba39fc05e7ec4
   path: preprocess_mnist.py
 outs:
-- md5: 055c043bb9785118387565a263838d59.dir
-  path: ../../data/processed/mnist
+- md5: 3a742b29ff186247cddcd9007b17324e
+  path: ../../data/processed/mnist/x_train.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: ae07a4652c0675d0c760785562b11409
+  path: ../../data/processed/mnist/y_train.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: b28c7a48eaebaa03267207751a2f4cc5
+  path: ../../data/processed/mnist/covariance.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: e01fef38a87955c0dea418fb28c52f81
+  path: ../../data/processed/mnist/means.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/processed/mnist/clip_values.json
   cache: true
   metric: false
   persist: false

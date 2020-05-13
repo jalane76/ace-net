@@ -20,5 +20,5 @@ outs:
 - md5: d643edcb215b861c2171040b07006e33
   path: ../../data/results/mnist/mnist_benign_metrics.json
   cache: true
-  metric: false
+  metric: true
   persist: false

@@ -1,10 +1,13 @@
-md5: 570bfee83eef39a5efcf8e71261171bb
+md5: 5cdce1bed0780aafdd248c3c83e0cb0a
 cmd: python train_mnist_model.py /workspace/data/processed/mnist/x_train.pt /workspace/data/processed/mnist/y_train.pt
-  /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/
+  /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
+  /workspace/data/models/mnist/mnist_art_optimizer.pt
 wdir: ../models
 deps:
-- md5: d7639a0f21c5a625aa60acb4fff3bd12
+- md5: f20b0a02cd1d18dfc736449d8672839f
   path: train_mnist_model.py
+- md5: 3b679a371e9a3331b97400ca0fff74fa
+  path: mnist_model.py
 - md5: 3a742b29ff186247cddcd9007b17324e
   path: ../../data/processed/mnist/x_train.pt
 - md5: ae07a4652c0675d0c760785562b11409
@@ -12,8 +15,13 @@ deps:
 - md5: 1d94e4d40bb37f7efeef4bc6c2849106
   path: ../../data/processed/mnist/clip_values.json
 outs:
-- md5: 31c60af1d37234a0497c3d818c5304cc.dir
-  path: ../../data/models/mnist
+- md5: 74ab0a8b69a01ccdd046f160823fc4d8
+  path: ../../data/models/mnist/mnist_art_model.pt
+  cache: true
+  metric: false
+  persist: false
+- md5: e555842561d50a3e460e4012a597df5f
+  path: ../../data/models/mnist/mnist_art_optimizer.pt
   cache: true
   metric: false
   persist: false

@@ -15,8 +15,8 @@ import torch.nn.functional as F
 @click.argument('clip_values_filepath', type=click.Path(exists=True))
 @click.argument('model_filepath', type=click.Path(exists=True))
 @click.argument('optimizer_filepath', type=click.Path(exists=True))
-@click.argument('output_path', type=click.Path())
-def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath, optimizer_filepath, output_path):
+@click.argument('metrics_output_path', type=click.Path())
+def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath, optimizer_filepath, metrics_output_path):
 
     seed = 45616451
     np.random.seed(seed)
@@ -51,11 +51,8 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
         'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)
     }
 
-    # Save data
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    
-    with open(os.path.join(output_path, 'mnist_benign_metrics.json'), 'w') as f:
+    # Save data    
+    with open(metrics_output_path, 'w') as f:
         json.dump(accuracy, f)
 
 if __name__ == '__main__':

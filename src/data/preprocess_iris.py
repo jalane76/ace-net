@@ -8,8 +8,11 @@ import torch
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_path', type=click.Path())
-def main(input_filepath, output_path):
+@click.argument('x_train_output_path', type=click.Path())
+@click.argument('y_train_output_path', type=click.Path())
+@click.argument('covariance_output_path', type=click.Path())
+@click.argument('means_output_path', type=click.Path())
+def main(input_filepath, x_train_output_path, y_train_output_path, covariance_output_path, means_output_path):
 
     seed = 1
     np.random.seed(seed)
@@ -44,14 +47,11 @@ def main(input_filepath, output_path):
     covariance = torch.Tensor(np.cov(x_values, rowvar=False))
     means = torch.Tensor(np.mean(x_values, axis=0))
 
-
     # Save data
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    torch.save(x_tensor, os.path.join(output_path, 'x_train.pt'))
-    torch.save(y_tensor, os.path.join(output_path, 'y_train.pt'))
-    torch.save(covariance, os.path.join(output_path, 'covariance.pt'))
-    torch.save(means, os.path.join(output_path, 'means.pt'))
+    torch.save(x_tensor, x_train_output_path)
+    torch.save(y_tensor, y_train_output_path)
+    torch.save(covariance, covariance_output_path)
+    torch.save(means, means_output_path)
 
 if __name__ == '__main__':
     main()

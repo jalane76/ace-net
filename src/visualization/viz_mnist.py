@@ -90,8 +90,5 @@ def main(ace_filepath, ie_filepath, interventions_filepath, x_train_filepath, y_
         plot_name = 'mnist_ie.png'
         fig.savefig(os.path.join(output_path, plot_name))
 
-
-
-
 if __name__ == '__main__':
     main()

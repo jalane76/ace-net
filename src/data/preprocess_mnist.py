@@ -7,8 +7,14 @@ import os
 import torch
 
 @click.command()
-@click.argument('output_path', type=click.Path())
-def main(output_path):
+@click.argument('x_train_output_path', type=click.Path())
+@click.argument('y_train_output_path', type=click.Path())
+@click.argument('x_test_output_path', type=click.Path())
+@click.argument('y_test_output_path', type=click.Path())
+@click.argument('covariance_output_path', type=click.Path())
+@click.argument('means_output_path', type=click.Path())
+@click.argument('clip_values_output_path', type=click.Path())
+def main(x_train_output_path, y_train_output_path, x_test_output_path, y_test_output_path, covariance_output_path, means_output_path, clip_values_output_path):
 
     seed = 45616451
     np.random.seed(seed)
@@ -35,16 +41,14 @@ def main(output_path):
     covariance = torch.Tensor(np.cov(x_obvs[:, 0, :], rowvar=False))
 
     # Save data
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    torch.save(x_train, os.path.join(output_path, 'x_train.pt'))
-    torch.save(y_train, os.path.join(output_path, 'y_train.pt'))
-    torch.save(x_test, os.path.join(output_path, 'x_test.pt'))
-    torch.save(y_test, os.path.join(output_path, 'y_test.pt'))
-    torch.save(covariance, os.path.join(output_path, 'covariance.pt'))
-    torch.save(means, os.path.join(output_path, 'means.pt'))
+    torch.save(x_train, x_train_output_path)
+    torch.save(y_train, y_train_output_path)
+    torch.save(x_test, x_test_output_path)
+    torch.save(y_test, y_test_output_path)
+    torch.save(covariance, covariance_output_path)
+    torch.save(means, means_output_path)
 
-    with open(os.path.join(output_path, 'clip_values.json'), 'w') as f:
+    with open(clip_values_output_path, mode='w') as f:
         json.dump(clip_values, f)
 
 if __name__ == '__main__':

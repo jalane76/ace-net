@@ -134,7 +134,7 @@ def main(ace_filepath, ie_filepath, interventions_filepath, x_train_filepath, y_
             
             for alpha_index in range(num_alphas):
                 alpha_axis = axes[alpha_index + 1, class_index]
-                alpha_axis.imshow(ie[:, :, class_index, alpha_index], norm=TwoSlopeNorm(vmin=-ace_val_limit , vcenter=0, vmax=ace_val_limit), cmap='bwr', aspect='equal', interpolation='nearest')
+                alpha_axis.imshow(ie[:, :, class_index, alpha_index], norm=TwoSlopeNorm(vmin=-ie_val_limit , vcenter=0, vmax=ie_val_limit), cmap='bwr', aspect='equal', interpolation='nearest')
                 pbar.update(1)
         plot_name = 'mnist_ie.png'
         fig.savefig(os.path.join(output_path, plot_name))

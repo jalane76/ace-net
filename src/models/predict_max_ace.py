@@ -58,7 +58,7 @@ def main(max_ace_filepath, means_filepath, clip_values_filepath, model_filepath,
     max_dict = {}
     for idx in range(max_predictions.shape[0]):
         c = np.argmax(max_predictions[idx])
-        max_dict[idx] = '{} == {}: {}'.format(idx, c, str(idx == c))
+        max_dict[idx] = '(true) {} == {} (predicted): {}'.format(idx, c, str(idx == c))
 
     # Evaluate the classifier on the max ACE inputs + the training mean
     max_avg_predictions = classifier.predict(max_avg_ace)
@@ -66,7 +66,7 @@ def main(max_ace_filepath, means_filepath, clip_values_filepath, model_filepath,
     max_avg_dict = {}
     for idx in range(max_avg_predictions.shape[0]):
         c = np.argmax(max_avg_predictions[idx])
-        max_avg_dict[idx] = '{} == {}: {}'.format(idx, c, str(idx == c))
+        max_avg_dict[idx] = '(true) {} == {} (predicted): {}'.format(idx, c, str(idx == c))
 
     metrics = {
         'Max ACE': max_dict,

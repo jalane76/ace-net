@@ -1,0 +1,27 @@
+md5: e3e72cbc9e88de3dc3bb932b0d3b844f
+cmd: python predict_adv_class_using_ace.py /workspace/data/results/mnist/average_causal_effects.pt
+  /workspace/data/results/mnist/interventions.pt /workspace/data/results/mnist/successful_attacks/x_test.pt
+  /workspace/data/results/mnist/successful_attacks/y_test.pt /workspace/data/results/mnist/successful_attacks/x_test_adv.pt
+  /workspace/data/results/mnist/successful_attacks/y_test_adv.pt /workspace/data/results/mnist/predict_adv_class_using_ace_metrics.json
+wdir: ../model_analysis
+deps:
+- md5: 84778dc445dc2bd8263acfee6a188079
+  path: predict_adv_class_using_ace.py
+- md5: 180b3ea8700bfa41d4b3fa609b4c1b40
+  path: ../../data/results/mnist/average_causal_effects.pt
+- md5: a9f593fae77079c212ed1c9d44d202df
+  path: ../../data/results/mnist/interventions.pt
+- md5: b3e1e11c5b975df09d61e19019facca7
+  path: ../../data/results/mnist/successful_attacks/x_test.pt
+- md5: b77673e0666f210e1b7264214e822b27
+  path: ../../data/results/mnist/successful_attacks/y_test.pt
+- md5: d3f910263cbd5dc43976a1e28b0c6280
+  path: ../../data/results/mnist/successful_attacks/x_test_adv.pt
+- md5: c6b2d09ed270316515a2a610b8060fce
+  path: ../../data/results/mnist/successful_attacks/y_test_adv.pt
+outs:
+- md5: b6d784b00e47f0811280cfc2512bcf84
+  path: ../../data/results/mnist/predict_adv_class_using_ace_metrics.json
+  cache: true
+  metric: true
+  persist: false

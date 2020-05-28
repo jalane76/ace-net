@@ -26,8 +26,8 @@ def main(ace_filepath, interventions_filepath, x_filepath, effects_map_output_pa
     interp_funcs = np.empty((X.shape[0], X.shape[1]), dtype=np.object)
     effects_map = torch.zeros((X.shape[0], X.shape[1], num_classes))
 
-    #for n in trange(X.shape[0]):
-    for n in trange(1):
+    for n in trange(X.shape[0]):
+    #for n in trange(1):
         x = X[n, :]
 
         #for idx in diff.nonzero()[0]:

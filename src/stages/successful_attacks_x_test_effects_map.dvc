@@ -1,0 +1,20 @@
+md5: cd6d86aeeedeacbc703fe6f376f627b2
+cmd: python effects_map.py /workspace/data/results/mnist/average_causal_effects.pt
+  /workspace/data/results/mnist/interventions.pt /workspace/data/results/mnist/successful_attacks/x_test.pt
+  /workspace/data/results/mnist/successful_attacks_x_test_effects_map.py
+wdir: ../model_analysis
+deps:
+- md5: a81f9432a761a86bbf3c68ae90c8ac82
+  path: effects_map.py
+- md5: 180b3ea8700bfa41d4b3fa609b4c1b40
+  path: ../../data/results/mnist/average_causal_effects.pt
+- md5: a9f593fae77079c212ed1c9d44d202df
+  path: ../../data/results/mnist/interventions.pt
+- md5: b3e1e11c5b975df09d61e19019facca7
+  path: ../../data/results/mnist/successful_attacks/x_test.pt
+outs:
+- md5: d0f830974be60dbf27c312cbf89c5cbd
+  path: ../../data/results/mnist/successful_attacks_x_test_effects_map.pt
+  cache: true
+  metric: false
+  persist: false

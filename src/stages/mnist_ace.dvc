@@ -1,15 +1,15 @@
-md5: 71eff5b2138818458064fc8608922783
+md5: e34b90f2c2d244c0ee0ab7871e102fd5
 cmd: python mnist_ace.py /workspace/data/models/mnist/mnist_art_model.pt /workspace/data/processed/mnist/clip_values.json
   /workspace/data/processed/mnist/covariance.pt /workspace/data/processed/mnist/means.pt
   /workspace/data/results/mnist/interventional_expectations.pt /workspace/data/results/mnist/average_causal_effects.pt
   /workspace/data/results/mnist/interventions.pt
 wdir: ../model_analysis
 deps:
-- md5: 243aff19e714d2d5dd0e241477cf6c95
+- md5: 2b31832166524f7d81a911d9e89c8a5b
   path: mnist_ace.py
 - md5: 96718ca38578b60277d3c3ff136c3c4d
   path: ace.py
-- md5: 74ab0a8b69a01ccdd046f160823fc4d8
+- md5: ea8d92a4aafd68c4783b7544ce67ea52
   path: ../../data/models/mnist/mnist_art_model.pt
 - md5: 1d94e4d40bb37f7efeef4bc6c2849106
   path: ../../data/processed/mnist/clip_values.json
@@ -18,17 +18,17 @@ deps:
 - md5: e01fef38a87955c0dea418fb28c52f81
   path: ../../data/processed/mnist/means.pt
 outs:
-- md5: 8c5633af0658364d7225e06e80ebcaaa
+- md5: ff7d246a76073b8cf0f4070b13110eff
   path: ../../data/results/mnist/interventional_expectations.pt
   cache: true
   metric: false
   persist: false
-- md5: 180b3ea8700bfa41d4b3fa609b4c1b40
+- md5: c50328e98142b9e936072a0fd3c8d966
   path: ../../data/results/mnist/average_causal_effects.pt
   cache: true
   metric: false
   persist: false
-- md5: a9f593fae77079c212ed1c9d44d202df
+- md5: 885c58a950f78813e0298969bb171431
   path: ../../data/results/mnist/interventions.pt
   cache: true
   metric: false

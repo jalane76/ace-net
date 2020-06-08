@@ -26,10 +26,12 @@ def main(max_ace_filepath, means_filepath, clip_values_filepath, model_filepath,
     max_ace = torch.load(max_ace_filepath)
     means = torch.load(means_filepath)
 
+    
     # Reshape max ACE as input to the model
     max_ace = max_ace.permute(1, 0)
-    max_ace = max_ace.unsqueeze(1)
-    max_ace = max_ace.reshape(-1, 1, 28, 28)
+    
+    # Flatten means
+    means = means.reshape(-1)
 
     max_avg_ace = max_ace + means
 

@@ -48,6 +48,12 @@ def main(
     y_test = torch.load(y_test_filepath)
     x_test_adv = torch.load(x_test_adv_filepath)
 
+    # Remember shapes and flatten
+    x_test_shape = x_test.shape
+    x_test = x_test.reshape(x_test.shape[0], -1)
+    x_test_adv_shape = x_test_adv.shape
+    x_test_adv = x_test_adv.reshape(x_test_adv.shape[0], -1)
+
     num_classes = 10
 
     model = torch.load(model_filepath)
@@ -85,6 +91,10 @@ def main(
     y_test_success = y_test[keep_bool, :]
     x_test_adv_success = x_test_adv[keep_bool, :]
     y_test_adv_success = attacks[keep_bool, :]
+
+    # Reshape data back to original
+    x_test = x_test.reshape(-1, *x_test_shape[1:])
+    x_test_adv = x_test_adv.reshape(-1, *x_test_adv_shape[1:])
     
     torch.save(x_test_success, x_test_success_output_path)
     torch.save(y_test_success, y_test_success_output_path)

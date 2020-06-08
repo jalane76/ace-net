@@ -1,16 +1,16 @@
-md5: 77d9def92e7100322330f43e865111de
+md5: dfb8e50d49c3f418f3d7547ee947a083
 cmd: python mnist_max_ace.py /workspace/data/results/mnist/average_causal_effects.pt
   /workspace/data/results/mnist/interventions.pt /workspace/data/results/mnist/max_ace.pt
 wdir: ../model_analysis
 deps:
 - md5: 4f78452441191698e90d7f8ddf917770
   path: mnist_max_ace.py
-- md5: 180b3ea8700bfa41d4b3fa609b4c1b40
+- md5: c50328e98142b9e936072a0fd3c8d966
   path: ../../data/results/mnist/average_causal_effects.pt
-- md5: a9f593fae77079c212ed1c9d44d202df
+- md5: 885c58a950f78813e0298969bb171431
   path: ../../data/results/mnist/interventions.pt
 outs:
-- md5: e1223959d0092c62b0c31da13887f7c5
+- md5: 8739755245895c9ef655ef7fef1fc9d6
   path: ../../data/results/mnist/max_ace.pt
   cache: true
   metric: false

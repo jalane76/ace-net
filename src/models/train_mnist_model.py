@@ -24,6 +24,9 @@ def main(x_train_filepath, y_train_filepath, clip_values_filepath, model_output_
     # Load data
     x_train = torch.load(x_train_filepath)
     y_train = torch.load(y_train_filepath)
+
+    # Flatten training set
+    x_train = x_train.reshape(x_train.shape[0], -1)
     
     clip_values = {}
     with open(clip_values_filepath, 'r') as f:
@@ -32,20 +35,20 @@ def main(x_train_filepath, y_train_filepath, clip_values_filepath, model_output_
 
     model = MnistModel()
 
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.01)
+    criterion = nn.NLLLoss()
+    optimizer = optim.SGD(model.parameters(), lr=0.003, momentum=0.9)
 
     classifier = PyTorchClassifier(
         model=model,
         clip_values=clip_values,
         loss=criterion,
         optimizer=optimizer,
-        input_shape=(1, 28, 28),
+        input_shape=(784),
         nb_classes=10
     )
 
     # Train classifier
-    classifier.fit(x_train, y_train, batch_size=64, nb_epochs=5)
+    classifier.fit(x_train, y_train, batch_size=64, nb_epochs=15)
 
     # Save data
     torch.save(model, model_output_path)

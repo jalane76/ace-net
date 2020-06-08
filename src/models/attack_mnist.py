@@ -26,7 +26,11 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
 
     # Load data
     x_test = torch.load(x_test_filepath)
+    x_test_shape = x_test.shape
     y_test = torch.load(y_test_filepath)
+
+    # Flatten test set
+    x_test = x_test.reshape(x_test.shape[0], -1)
 
     model = torch.load(model_filepath)
     optimizer = torch.load(optimizer_filepath)
@@ -57,6 +61,8 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
         'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)
     }
 
+    # Reshape adversarial examples back to original test data shape
+    x_test_adv = x_test_adv.reshape(x_test_shape)
     torch.save(x_test_adv, x_test_adv_output_path)
     
     with open(metrics_output_path, 'w') as f:

@@ -1,0 +1,27 @@
+md5: 48b1ef7f46f5fc72ac7c39763b5b30f8
+cmd: python /workspace/src/visualization/viz_attack_map.py /workspace/data/results/mnist/successful_attacks/x_test.pt
+  /workspace/data/results/mnist/successful_attacks/y_test.pt /workspace/data/results/mnist/successful_attacks/x_test_adv.pt
+  /workspace/data/results/mnist/successful_attacks/y_test_adv.pt /workspace/data/results/mnist/successful_attacks_x_test_effects_map.pt
+  /workspace/data/results/mnist/successful_attacks_x_test_adv_effects_map.pt /workspace/data/viz/mnist/mnist_attack_map.png
+wdir: ../visualization
+deps:
+- md5: 9b8061b0b1868653a5b1f764b82c2832
+  path: viz_attack_map.py
+- md5: 79e0929cd47bc7a2463c9e78f5a06d09
+  path: ../../data/results/mnist/successful_attacks/x_test.pt
+- md5: 49b9c3f3400d004319ff4b08bdb8e904
+  path: ../../data/results/mnist/successful_attacks/y_test.pt
+- md5: 88038efded08281bbea70d455d073a44
+  path: ../../data/results/mnist/successful_attacks/x_test_adv.pt
+- md5: fbb58adfc4e279f52a41b45dd73f8385
+  path: ../../data/results/mnist/successful_attacks/y_test_adv.pt
+- md5: d8779b4914ae170ce245d4eaf9e24ed1
+  path: ../../data/results/mnist/successful_attacks_x_test_effects_map.pt
+- md5: 2198c1d2f2c67a7fad279a2d0f965135
+  path: ../../data/results/mnist/successful_attacks_x_test_adv_effects_map.pt
+outs:
+- md5: c8356cd129c9daa5a59462f5795091a8
+  path: ../../data/viz/mnist/mnist_attack_map.png
+  cache: true
+  metric: false
+  persist: false

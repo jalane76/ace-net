@@ -26,6 +26,9 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
     x_test = torch.load(x_test_filepath)
     y_test = torch.load(y_test_filepath)
 
+    # Flatten x_test
+    x_test = x_test.reshape(x_test.shape[0], -1)
+
     model = torch.load(model_filepath)
     optimizer = torch.load(optimizer_filepath)
 

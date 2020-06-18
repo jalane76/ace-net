@@ -22,6 +22,9 @@ def main(model_filepath, clip_values_filepath, covariance_filepath, means_filepa
     cov = torch.load(covariance_filepath)
     mean = torch.load(means_filepath)
 
+    # Flatten the mean
+    mean = mean.reshape(1, -1)
+
     clip_values = {}
     with open(clip_values_filepath, 'r') as f:
         clip_values = json.load(f)

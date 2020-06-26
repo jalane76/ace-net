@@ -55,7 +55,7 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
     attack = FastGradientMethod(classifier=classifier, eps=0.2)
     x_test_adv = attack.generate(x=x_test)
 
-    # Evaluate the classifier on benign data
+    # Evaluate the classifier on adversarial data
     predictions = classifier.predict(x_test_adv)
     accuracy = {
         'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)

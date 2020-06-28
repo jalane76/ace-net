@@ -1,9 +1,9 @@
-md5: 498e200fa6b5c15a5754f2eb248d3bd0
+md5: 3ef44b689558a608728cc1d0f0ea3567
 cmd: python attack_mnist.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/processed/mnist/x_test_adv.pt
   /workspace/data/results/mnist/mnist_attack_metrics.json
-wdir: ../models
+wdir: ../attacks
 deps:
 - md5: 350a23d1eb00e7d9d6679761171b725b
   path: attack_mnist.py

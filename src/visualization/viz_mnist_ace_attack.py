@@ -23,7 +23,7 @@ def main(x_test_filepath, y_test_filepath, x_test_adv_filepath, output_path):
     H = W = 28
     x_test = torch.load(x_test_filepath)
     y_test = torch.load(y_test_filepath)
-    x_test_adv = torch.load(x_test_adv_filepath)
+    x_test_adv = torch.load(x_test_adv_filepath).numpy()
 
     # swap axes so they look right
     x_test = np.swapaxes(x_test, 2, 3).astype(np.float32)

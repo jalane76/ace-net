@@ -28,6 +28,7 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
 
     # Load data
     x_test = torch.load(x_test_filepath)
+    x_test_shape = x_test.shape
     x_test = x_test.reshape(x_test.shape[0], -1)
     y_test = torch.load(y_test_filepath)
     ace = torch.load(ace_filepath).cpu()
@@ -52,12 +53,12 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
         nb_classes=10
     )
 
-    # Target the attacks to class '0'
+    # Target the attacks to a particular class
     y_test_adv = torch.zeros_like(torch.from_numpy(y_test))
     y_test_adv[:, 0] = 1.0
 
     # Generate attacks
-    x_test_adv = ace_attack(ace, interventions, torch.from_numpy(x_test), target_classes=y_test_adv)
+    x_test_adv = ace_attack(ace, interventions, torch.from_numpy(x_test), target_classes=y_test_adv, norm=2, budget=5.0)
     y_test_adv = y_test_adv.numpy()
 
     # Evaluate the classifier on adversarial data
@@ -74,6 +75,8 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
         'Class Counts': count_dict
     }
 
+    # Unflatten for saving
+    x_test_adv = x_test_adv.reshape(x_test_shape)
     torch.save(x_test_adv, attacks_output_filepath)
     
     with open(metrics_output_path, 'w') as f:

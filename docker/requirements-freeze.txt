@@ -35,7 +35,7 @@ google-auth==1.14.2
 google-auth-httplib2==0.0.3
 googleapis-common-protos==1.51.0
 grandalf==0.6
-httplib2==0.17.3
+httplib2==0.18.0
 humanize==2.4.0
 idna==2.8
 importlib-metadata==1.6.0

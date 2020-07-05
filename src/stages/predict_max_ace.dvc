@@ -1,4 +1,4 @@
-md5: abdcfde83e9879ef0c16bd6a03a3e702
+md5: 208a0d87b8f09805e46e972eead6b6b5
 cmd: python predict_max_ace.py /workspace/data/results/mnist/max_ace.pt /workspace/data/processed/mnist/means.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist/max_ace_metrics.json
@@ -6,19 +6,17 @@ wdir: ../models
 deps:
 - md5: d0211c2173f1b95c381715285c209ada
   path: predict_max_ace.py
-- md5: 8739755245895c9ef655ef7fef1fc9d6
+- md5: 6cb8bf026b54f0c685806a7c5f47231c
   path: ../../data/results/mnist/max_ace.pt
-- md5: e01fef38a87955c0dea418fb28c52f81
+- md5: f0940f71ea45eb666251f5f084fe63fe
   path: ../../data/processed/mnist/means.pt
 - md5: 1d94e4d40bb37f7efeef4bc6c2849106
   path: ../../data/processed/mnist/clip_values.json
-- md5: ea8d92a4aafd68c4783b7544ce67ea52
+- md5: 1171ae33ed4b1ba3898205d11372f3f8
   path: ../../data/models/mnist/mnist_art_model.pt
-- md5: ae63ff34fd258ff10d31363b0c94003b
+- md5: b5f541e4aa430ef7a286c03fccddfb87
   path: ../../data/models/mnist/mnist_art_optimizer.pt
 outs:
 - md5: 87a4676468765ad2c1fdc410f42f8045
   path: ../../data/results/mnist/max_ace_metrics.json
-  cache: true
   metric: true
-  persist: false

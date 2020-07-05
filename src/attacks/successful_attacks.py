@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-def convert_on_hot(logits):
+def convert_one_hot(logits):
     result = np.zeros_like(logits)
     result[np.argmax(logits)] = 1.0
     return result
@@ -77,12 +77,12 @@ def main(
 
     # Evaluate the classifier on benign data
     predictions = classifier.predict(x_test)
-    predictions = np.apply_along_axis(convert_on_hot, 1, predictions)  # convert argmax to one-hot
+    predictions = np.apply_along_axis(convert_one_hot, 1, predictions)  # convert argmax to one-hot
     pred_bool = (predictions == y_test).all(axis=1)  # create a bool array with true flags when prediction is equal to the true class
 
     # Evaluate the classifier on adversarial data
     attacks = classifier.predict(x_test_adv)
-    attacks = np.apply_along_axis(convert_on_hot, 1, attacks)  # convert argmax to one-hot
+    attacks = np.apply_along_axis(convert_one_hot, 1, attacks)  # convert argmax to one-hot
     attack_bool = (attacks == y_test).all(axis=1)  # create a bool array with true flags when attack prediction is equal to the true class
     
     keep_bool = np.logical_and(pred_bool, np.logical_not(attack_bool))  # create bool array with true flags when benign prediction was correct and adversarial prediction was incorrect

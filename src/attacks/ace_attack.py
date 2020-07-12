@@ -81,7 +81,7 @@ def ace_attack(ace, interventions, inputs, predicted_classes=None, target_classe
     inputs = inputs.reshape(inputs_shape[0], -1)
     attacks = attacks.reshape(inputs_shape[0], -1)
 
-    for input_index in trange(inputs_shape[0]):
+    for input_index in range(inputs_shape[0]):
         inp = inputs[input_index, :]
 
         predicted_class = predicted_classes[input_index, :] if predicted_classes is not None else None

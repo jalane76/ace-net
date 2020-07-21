@@ -1,4 +1,4 @@
-md5: 98cd7116f3c6a342128e8ca9a078a566
+md5: 3a5dcd763e16a96deb73e255f42a0e50
 cmd: python /workspace/src/visualization/viz_attack_map.py /workspace/data/results/mnist/successful_attacks/x_test.pt
   /workspace/data/results/mnist/successful_attacks/y_test.pt /workspace/data/results/mnist/successful_attacks/x_test_adv.pt
   /workspace/data/results/mnist/successful_attacks/y_test_adv.pt /workspace/data/results/mnist/successful_attacks_x_test_effects_map.pt
@@ -22,3 +22,6 @@ deps:
 outs:
 - md5: bd64d753ae93f01fd36118a999f50396
   path: ../../data/viz/mnist/mnist_attack_map.png
+  cache: true
+  metric: false
+  persist: false

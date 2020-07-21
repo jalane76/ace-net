@@ -1,4 +1,4 @@
-md5: 2940008bcbb387960d1c18fd14cb7432
+md5: 6d7b016e37c038465f65e85588a64139
 cmd: python mnist_ace_attack.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist/average_causal_effects.pt  /workspace/data/results/mnist/interventions.pt
@@ -26,6 +26,11 @@ deps:
 outs:
 - md5: 59368c4906b7645979f9582d60c64a65
   path: ../../data/results/mnist/ace_attacks.pt
+  cache: true
+  metric: false
+  persist: false
 - md5: fb011210d09c32c4ca9c58d05f7fbe09
   path: ../../data/results/mnist/mnist_ace_attack_metrics.json
   metric: true
+  cache: true
+  persist: false

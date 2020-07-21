@@ -1,4 +1,4 @@
-md5: 4ec2b19e927b1f3326f16cf7b24e9b16
+md5: 5eb697674adb4fe0d3812fcf29ce435a
 cmd: python train_mnist_model.py /workspace/data/processed/mnist/x_train.pt /workspace/data/processed/mnist/y_train.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt
@@ -17,5 +17,11 @@ deps:
 outs:
 - md5: 1171ae33ed4b1ba3898205d11372f3f8
   path: ../../data/models/mnist/mnist_art_model.pt
+  cache: true
+  metric: false
+  persist: false
 - md5: b5f541e4aa430ef7a286c03fccddfb87
   path: ../../data/models/mnist/mnist_art_optimizer.pt
+  cache: true
+  metric: false
+  persist: false

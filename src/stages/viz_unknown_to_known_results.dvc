@@ -1,12 +1,15 @@
-md5: c7f30bba15efb9c1d3da1e712f2d729c
+md5: 6f7c79c4b4e085662637ec94c0e7d460
 cmd: python viz_unknown_to_known_results.py /workspace/data/results/mnist/unknown_to_known_permutations_results
   /workspace/data/viz/mnist/viz_unknown_to_known_results
 wdir: ../visualization
 deps:
-- md5: 22fc3e2761241f09f6ce745df1d00156
+- md5: c0666ab816be473972c2113d9eb88c45
   path: viz_unknown_to_known_results.py
 - md5: 3cd3cf304ff58d2aa64bcd758dcaadd8.dir
   path: ../../data/results/mnist/unknown_to_known_permutations_results
 outs:
-- md5: 9064fb54dd6453426402513ef6164dc7.dir
+- md5: 6f141ad9028bc4c5dc7ea7f4c90027ba.dir
   path: ../../data/viz/mnist/viz_unknown_to_known_results
+  cache: true
+  metric: false
+  persist: false

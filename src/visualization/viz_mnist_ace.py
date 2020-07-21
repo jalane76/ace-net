@@ -34,6 +34,7 @@ def main(ace_filepath, interventions_filepath, x_train_filepath, y_train_filepat
     interventions = torch.load(interventions_filepath).cpu()
     num_alphas = interventions.nelement()
     num_classes = 10
+    
 
     x_train = torch.load(x_train_filepath)
     y_train = torch.load(y_train_filepath)
@@ -53,12 +54,23 @@ def main(ace_filepath, interventions_filepath, x_train_filepath, y_train_filepat
     # Gotta swap axes so they look right
     train_class_examples = np.swapaxes(train_class_examples, 0, 1).astype(np.float32)
 
+    rows = ['\u03B1 = {:.2f}'.format(alpha) for alpha in interventions]
+    cols = ['y = {}'.format(c) for c in range(10)]
+
     # Plot the ACEs
     total_iters = num_classes * num_alphas
     with tqdm(total_iters) as pbar:
         fig, axes = plt.subplots(num_alphas + 1, num_classes, sharex=True, sharey=True)
         fig.set_figheight(4.0 * (num_alphas + 1))
         fig.set_figwidth(4.0 * num_classes)
+
+        for ax, col in zip(axes[0], cols):
+            ax.set_title(col, fontsize=60, pad=20)
+
+        for ax, row in zip(axes[1:, 0], rows):
+            ax.set_ylabel(row, rotation=0, fontsize=60, verticalalignment='center')
+            ax.get_yaxis().set_label_coords(-0.8, 0.5)
+
         for class_index in range(num_classes):
             if class_index >= y_size:
                 break

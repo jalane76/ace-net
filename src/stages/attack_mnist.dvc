@@ -1,4 +1,4 @@
-md5: 54ea586451aa68835b5a20ca91a50470
+md5: b5c6455f084c3e6fe21fb8c143ed9ca0
 cmd: python attack_mnist.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/processed/mnist/x_test_adv.pt
@@ -20,6 +20,11 @@ deps:
 outs:
 - md5: e828597039a26d1de50bbf145ea01298
   path: ../../data/processed/mnist/x_test_adv.pt
+  cache: true
+  metric: false
+  persist: false
 - md5: 61da416a1a671a46d6ab8e3d577348c6
   path: ../../data/results/mnist/mnist_attack_metrics.json
   metric: true
+  cache: true
+  persist: false

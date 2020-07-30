@@ -14,22 +14,17 @@ The purpose of this repo is twofold:
     ├── README.md                   <- The top-level README for developers using this project.
     ├── data (HIDDEN)               <- Hidden from Git, but files are in a public Google Drive (see below)
     │   ├── models                  <- Trained and serialized models, model predictions, or model summaries
-    │   ├── results                 <- Intermediate results files.
-    │   ├── external                <- Data from third party sources.
-    │   ├── interim                 <- Intermediate data that has been transformed.
     │   ├── processed               <- The final, canonical data sets for modeling.
-    │   └── raw                     <- The original, immutable data dump.
-    │
+    │   ├── raw                     <- The original, immutable data dump.
+    │   ├── results                 <- Intermediate results files.
+    │   └── viz                     <- Images generated for visualization.
+    │ 
     ├── docker                      <- A Dockerfile and scripts for development in a container
     │   ├── apt-requirements.txt    <- Apt packages requirements file for building the docker image
-    │   └── requirements.txt        <- The requirements file for reproducing the analysis environment, e.g.
-    │                                  generated with `pip freeze > requirements.txt`
+    │   └── requirements.txt        <- The requirements file for reproducing the analysis environment
+    │   └── requirements-freeze.txt <- The detailed requirements file generated with `pip freeze > requirements-freeze.txt`
     │
     ├── docs                        <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── notebooks                   <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                                  the creator's initials, and a short `-` delimited description, e.g.
-    │                                  `1.0-jqp-initial-data-exploration`.
     │
     ├── references                  <- Data dictionaries, manuals, and all other explanatory materials.
     │
@@ -41,19 +36,21 @@ The purpose of this repo is twofold:
     ├── src                         <- Source code for use in this project.
     │   ├── __init__.py             <- Makes src a Python module
     │   │
+    │   ├── attacks                 <- Scripts to generate attacks using ACE
+    │   │
     │   ├── data                    <- Scripts to download or generate data
-    │   │   └── make_dataset.py
     │   │
-    │   ├── features                <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
+    │   ├── model_analysis          <- Scripts to analyze trained models
     │   │
-    │   ├── models                  <- Scripts to train models and then use trained models to make
-    │   │   │                          predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   ├── models                  <- Scripts to train models and then use trained models to make predictions
+    │   │
+    │   ├── stages                  <- DVC stage files for defining reproducible experiments
+    │   │
+    │   ├── tests                   <- Scripts to test utilities and algorithms
+    │   │
+    │   ├── utils                   <- Scripts for everything else
     │   │
     │   └── visualization           <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
     │
     └── tox.ini                     <- tox file with settings for running tox; see tox.readthedocs.io
 

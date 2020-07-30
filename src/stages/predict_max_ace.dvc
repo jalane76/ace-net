@@ -1,4 +1,4 @@
-md5: 85732fa77fb74f5b6cfe2627c8f1b0b0
+md5: 208a0d87b8f09805e46e972eead6b6b5
 cmd: python predict_max_ace.py /workspace/data/results/mnist/max_ace.pt /workspace/data/processed/mnist/means.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist/max_ace_metrics.json
@@ -20,5 +20,3 @@ outs:
 - md5: 87a4676468765ad2c1fdc410f42f8045
   path: ../../data/results/mnist/max_ace_metrics.json
   metric: true
-  cache: true
-  persist: false

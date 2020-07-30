@@ -1,4 +1,4 @@
-md5: 472daab1d40c27432748e17896725ff2
+md5: 22d0d56339826696a90677362bab4159
 cmd: python /workspace/src/visualization/viz_mnist_ace.py /workspace/data/results/mnist/average_causal_effects.pt
   /workspace/data/results/mnist/interventions.pt /workspace/data/processed/mnist/x_train.pt
   /workspace/data/processed/mnist/y_train.pt /workspace/data/viz/mnist/mnist_ace.png
@@ -17,6 +17,3 @@ deps:
 outs:
 - md5: bd60cad38c1e6cd5f6995d576149781a
   path: ../../data/viz/mnist/mnist_ace.png
-  cache: true
-  metric: false
-  persist: false

@@ -1,4 +1,4 @@
-md5: 6f7346f59005ba9d1928cd4fa4a692de
+md5: 0d9015cfe1827a2054bcacdfad3edd84
 cmd: python successful_attacks.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
   /workspace/data/processed/mnist/x_test_adv.pt /workspace/data/processed/mnist/clip_values.json
   /workspace/data/models/mnist/mnist_art_model.pt /workspace/data/models/mnist/mnist_art_optimizer.pt
@@ -21,21 +21,9 @@ deps:
 outs:
 - md5: 6109d3705da3801952969875c8d33230
   path: ../../data/results/mnist/successful_attacks/x_test.pt
-  cache: true
-  metric: false
-  persist: false
 - md5: decdb06d7119612c2532b28f74c668ce
   path: ../../data/results/mnist/successful_attacks/y_test.pt
-  cache: true
-  metric: false
-  persist: false
 - md5: 8b3dc62b449dfc157e239df64f2a3fc0
   path: ../../data/results/mnist/successful_attacks/x_test_adv.pt
-  cache: true
-  metric: false
-  persist: false
 - md5: 1515199bc1867f6d69547824ea0fdb10
   path: ../../data/results/mnist/successful_attacks/y_test_adv.pt
-  cache: true
-  metric: false
-  persist: false

@@ -1,4 +1,4 @@
-md5: 9881ac896f63a501bb1b7f9da4e39a41
+md5: de5a9335309e1518908c4d668926b790
 cmd: python mono_check.py /workspace/data/results/mnist/average_causal_effects.pt
   /workspace/data/results/mnist/mono_check_metrics.json
 wdir: ../model_analysis
@@ -11,5 +11,3 @@ outs:
 - md5: e7520fa64505e55a09320a0a7b2054d1
   path: ../../data/results/mnist/mono_check_metrics.json
   metric: true
-  cache: true
-  persist: false

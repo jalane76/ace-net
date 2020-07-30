@@ -1,4 +1,4 @@
-md5: 7195ad686f09b3bf3da79ab0160e571a
+md5: 7150026f92c872baed4d8112242ab47b
 cmd: python /workspace/src/visualization/viz_mnist_ace_attack.py /workspace/data/processed/mnist/x_test.pt
   /workspace/data/processed/mnist/y_test.pt /workspace/data/results/mnist/ace_attacks.pt
   /workspace/data/viz/mnist/mnist_ace_attack.png
@@ -17,6 +17,3 @@ deps:
 outs:
 - md5: 902d2af42af3b3063cd366eb4282b922
   path: ../../data/viz/mnist/mnist_ace_attack.png
-  cache: true
-  metric: false
-  persist: false

@@ -1,4 +1,4 @@
-md5: 3ee8f9e0530e59e9e1b051d3b5052725
+md5: e81de49c592e91a0dfd82c829f7985a3
 cmd: python /workspace/src/model_analysis/iris_ace.py /workspace/data/models/iris/from-paper/iris_double_model_8
   /workspace/data/processed/iris/covariance.pt /workspace/data/processed/iris/means.pt
   /workspace/data/results/iris/interventional_expectations.pt /workspace/data/results/iris/average_causal_effects.pt
@@ -18,16 +18,7 @@ deps:
 outs:
 - md5: 9c859f74b10d1dc93141226e71c5a2e2
   path: ../../data/results/iris/interventional_expectations.pt
-  cache: true
-  metric: false
-  persist: false
 - md5: a43aed5aac199d9e8356ec00c6c3028f
   path: ../../data/results/iris/average_causal_effects.pt
-  cache: true
-  metric: false
-  persist: false
 - md5: b9b8b53bdba838903d9f93b2a7adc3a1
   path: ../../data/results/iris/interventions.pt
-  cache: true
-  metric: false
-  persist: false

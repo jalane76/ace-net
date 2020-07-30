@@ -1,4 +1,4 @@
-md5: bb2cf2f0fbd2d9cdedb69599dca1a9a4
+md5: 1f15df8ddc39208e535cf2f025f7f19c
 cmd: python /workspace/src/visualization/viz_mnist_avg_attack_diff.py /workspace/data/processed/mnist/x_test.pt
   /workspace/data/processed/mnist/y_test.pt /workspace/data/processed/mnist/x_test_adv.pt
   /workspace/data/viz/mnist/mnist_avg_attack_diff.png
@@ -15,6 +15,3 @@ deps:
 outs:
 - md5: 5060e7b873ec6ea93d0f7279d0fa5adf
   path: ../../data/viz/mnist/mnist_avg_attack_diff.png
-  cache: true
-  metric: false
-  persist: false

@@ -1,4 +1,4 @@
-md5: 454c3e1fe6a9dc5fd5723e3f87a482e9
+md5: abca71e9c105cb7e1426b6971b1ee658
 cmd: python unknown_to_known_permutations.py /workspace/data/processed/mnist/x_test.pt
   /workspace/data/processed/mnist/y_test.pt /workspace/data/processed/mnist/clip_values.json
   /workspace/data/models/mnist/mnist_art_model.pt /workspace/data/models/mnist/mnist_art_optimizer.pt
@@ -27,6 +27,3 @@ deps:
 outs:
 - md5: 3cd3cf304ff58d2aa64bcd758dcaadd8.dir
   path: ../../data/results/mnist/unknown_to_known_permutations_results
-  cache: true
-  metric: false
-  persist: false

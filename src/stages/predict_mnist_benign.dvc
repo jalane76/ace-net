@@ -1,4 +1,4 @@
-md5: 66890a17369dd718b3278dabf25973c8
+md5: a67af457a482dbcd985c8239519b8181
 cmd: python predict_mnist_benign.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
   /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
   /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist/mnist_benign_metrics.json
@@ -20,5 +20,3 @@ outs:
 - md5: 0233dffd8934fc9018a91e960c6a971e
   path: ../../data/results/mnist/mnist_benign_metrics.json
   metric: true
-  cache: true
-  persist: false

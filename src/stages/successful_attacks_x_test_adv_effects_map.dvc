@@ -1,4 +1,4 @@
-md5: 3c9cb47db1d69e68189753483183f8b6
+md5: 4d48cd2d0e30b6920e2bfbb231fe7a93
 cmd: python effects_map.py /workspace/data/results/mnist/average_causal_effects.pt
   /workspace/data/results/mnist/interventions.pt /workspace/data/results/mnist/successful_attacks/x_test_adv.pt
   /workspace/data/results/mnist/successful_attacks_x_test_adv_effects_map.pt
@@ -15,6 +15,3 @@ deps:
 outs:
 - md5: bcd35a7402c4afcb130c3db005ec68f1
   path: ../../data/results/mnist/successful_attacks_x_test_adv_effects_map.pt
-  cache: true
-  metric: false
-  persist: false

@@ -1,0 +1,24 @@
+md5: 1f9307055a0692b8593bc147fe534776
+cmd: python preprocess_mnist.py /workspace/data/processed/mnist/x_train.pt /workspace/data/processed/mnist/y_train.pt
+  /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
+  /workspace/data/processed/mnist/covariance.pt /workspace/data/processed/mnist/means.pt
+  /workspace/data/processed/mnist/clip_values.json
+wdir: ../data
+deps:
+- md5: b142fae6fdc511f7cafba39fc05e7ec4
+  path: preprocess_mnist.py
+outs:
+- md5: 3a742b29ff186247cddcd9007b17324e
+  path: ../../data/processed/mnist/x_train.pt
+- md5: ae07a4652c0675d0c760785562b11409
+  path: ../../data/processed/mnist/y_train.pt
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+- md5: eb32525924b3fba9a09565c55d8f1086
+  path: ../../data/processed/mnist/covariance.pt
+- md5: f0940f71ea45eb666251f5f084fe63fe
+  path: ../../data/processed/mnist/means.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/processed/mnist/clip_values.json

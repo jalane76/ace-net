@@ -1,0 +1,26 @@
+md5: 6b3ee1e2e3ad38d30ddf9dd76afbe89d
+cmd: python mnist_ace.py /workspace/data/models/mnist/mnist_art_model.pt /workspace/data/processed/mnist/clip_values.json
+  /workspace/data/processed/mnist/covariance.pt /workspace/data/processed/mnist/means.pt
+  /workspace/data/results/mnist/interventional_expectations.pt /workspace/data/results/mnist/average_causal_effects.pt
+  /workspace/data/results/mnist/interventions.pt
+wdir: ../model_analysis
+deps:
+- md5: 2b31832166524f7d81a911d9e89c8a5b
+  path: mnist_ace.py
+- md5: 96718ca38578b60277d3c3ff136c3c4d
+  path: ace.py
+- md5: 1171ae33ed4b1ba3898205d11372f3f8
+  path: ../../data/models/mnist/mnist_art_model.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/processed/mnist/clip_values.json
+- md5: eb32525924b3fba9a09565c55d8f1086
+  path: ../../data/processed/mnist/covariance.pt
+- md5: f0940f71ea45eb666251f5f084fe63fe
+  path: ../../data/processed/mnist/means.pt
+outs:
+- md5: dcc950e5714f2d3bbb92419bdbb024ed
+  path: ../../data/results/mnist/interventional_expectations.pt
+- md5: 75e74544c91966bc0676756c699d56be
+  path: ../../data/results/mnist/average_causal_effects.pt
+- md5: da8ca59b0d41036754c23d5898b620fa
+  path: ../../data/results/mnist/interventions.pt

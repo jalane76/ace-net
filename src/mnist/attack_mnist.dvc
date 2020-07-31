@@ -1,0 +1,25 @@
+md5: 54ea586451aa68835b5a20ca91a50470
+cmd: python attack_mnist.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
+  /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
+  /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/processed/mnist/x_test_adv.pt
+  /workspace/data/results/mnist/mnist_attack_metrics.json
+wdir: ../attacks
+deps:
+- md5: 350a23d1eb00e7d9d6679761171b725b
+  path: attack_mnist.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/processed/mnist/clip_values.json
+- md5: 1171ae33ed4b1ba3898205d11372f3f8
+  path: ../../data/models/mnist/mnist_art_model.pt
+- md5: b5f541e4aa430ef7a286c03fccddfb87
+  path: ../../data/models/mnist/mnist_art_optimizer.pt
+outs:
+- md5: e828597039a26d1de50bbf145ea01298
+  path: ../../data/processed/mnist/x_test_adv.pt
+- md5: 61da416a1a671a46d6ab8e3d577348c6
+  path: ../../data/results/mnist/mnist_attack_metrics.json
+  metric: true

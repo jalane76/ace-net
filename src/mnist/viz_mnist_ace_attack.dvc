@@ -1,0 +1,19 @@
+md5: 7150026f92c872baed4d8112242ab47b
+cmd: python /workspace/src/visualization/viz_mnist_ace_attack.py /workspace/data/processed/mnist/x_test.pt
+  /workspace/data/processed/mnist/y_test.pt /workspace/data/results/mnist/ace_attacks.pt
+  /workspace/data/viz/mnist/mnist_ace_attack.png
+wdir: ../visualization
+deps:
+- md5: 7c1ec357c936cdaf61856d03ec8312a1
+  path: ../attacks/ace_attack.py
+- md5: 53cae3230b631867d4ce27cd3478ac45
+  path: ../attacks/mnist_ace_attack.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+- md5: 59368c4906b7645979f9582d60c64a65
+  path: ../../data/results/mnist/ace_attacks.pt
+outs:
+- md5: 902d2af42af3b3063cd366eb4282b922
+  path: ../../data/viz/mnist/mnist_ace_attack.png

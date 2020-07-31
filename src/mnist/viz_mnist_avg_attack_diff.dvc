@@ -1,0 +1,17 @@
+md5: 1f15df8ddc39208e535cf2f025f7f19c
+cmd: python /workspace/src/visualization/viz_mnist_avg_attack_diff.py /workspace/data/processed/mnist/x_test.pt
+  /workspace/data/processed/mnist/y_test.pt /workspace/data/processed/mnist/x_test_adv.pt
+  /workspace/data/viz/mnist/mnist_avg_attack_diff.png
+wdir: ../visualization
+deps:
+- md5: f10be7664242524f54a7cba2f8be20f6
+  path: viz_mnist_ie.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/processed/mnist/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/processed/mnist/y_test.pt
+- md5: e828597039a26d1de50bbf145ea01298
+  path: ../../data/processed/mnist/x_test_adv.pt
+outs:
+- md5: 5060e7b873ec6ea93d0f7279d0fa5adf
+  path: ../../data/viz/mnist/mnist_avg_attack_diff.png

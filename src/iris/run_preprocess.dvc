@@ -1,18 +1,18 @@
-md5: 1293c3bd4b0fd374f311d774d2d633dc
-cmd: python /workspace/src/data/preprocess_iris.py /workspace/data/raw/iris/Iris_Dataset.csv
+md5: 40a510c817af267ecc709df628f57381
+cmd: python /workspace/src/iris/preprocess.py /workspace/data/raw/iris/Iris_Dataset.csv
   /workspace/data/processed/iris/x_train.pt /workspace/data/processed/iris/y_train.pt
   /workspace/data/processed/iris/covariance.pt /workspace/data/processed/iris/means.pt
 deps:
 - md5: 21215c689e5f31d89fb00bb0b432f263
   path: ../../data/raw/iris/Iris_Dataset.csv
 - md5: c95f43ca057e68dd5ddb32790d0abd7e
-  path: ../data/preprocess_iris.py
+  path: preprocess.py
 outs:
-- md5: 1423807786cb91adcd940973f94ff1c0
+- md5: f153ca4f6c65853f179eee12f501a7e0
   path: ../../data/processed/iris/x_train.pt
-- md5: 0797da794829eec954ce1042dc10f0e3
+- md5: 4bb1f1b5fa361c89fbc6cbd05cf6c681
   path: ../../data/processed/iris/y_train.pt
-- md5: fdd8ab5e8ebc4cefc8b54ab1c34e7a83
+- md5: f7f199f502107fd513154096fdcebe36
   path: ../../data/processed/iris/covariance.pt
-- md5: 36bac2b2ee263533e0cbc9ecbccdf36b
+- md5: eece321b0aef47dea9ca45cf919136cc
   path: ../../data/processed/iris/means.pt

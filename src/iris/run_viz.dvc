@@ -1,0 +1,13 @@
+md5: cad7e7cdae922c90d650b8861b05d2c7
+cmd: python viz.py /workspace/data/results/iris/average_causal_effects.pt /workspace/data/results/iris/interventions.pt
+  /workspace/data/viz/iris/
+deps:
+- md5: 49352bb1f9a4c3cfcbdb0d4799711abc
+  path: viz.py
+- md5: 0095df522eca104b9e6596ced9d70b63
+  path: ../../data/results/iris/average_causal_effects.pt
+- md5: 8f6ef41e6050f6465e0bc06bc8979ff8
+  path: ../../data/results/iris/interventions.pt
+outs:
+- md5: 187559d3d654dc77a6e27ccac9caf0cf.dir
+  path: ../../data/viz/iris

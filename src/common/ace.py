@@ -6,7 +6,7 @@ import torch.optim as optim
 import numpy as np
 from tqdm import tqdm, trange
 
-from utils.utils import hessian
+from common.utils import hessian
 
 def average_causal_effect(interventional_expectation):
     ''' Calculates the average causal effect from the interventional expectations.

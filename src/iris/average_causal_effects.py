@@ -26,10 +26,9 @@ def main(model_filepath, covariance_filepath, means_filepath, interventional_exp
     ie = ace.interventional_expectation(wrapped_model, mean, cov, interventions, epsilon=0.000001, method='hessian_diag', progress=True)
     avg_ce = ace.average_causal_effect(ie)
 
-    # Remove names for now since named tensors aren't serializable
     # Also detach grads so they are not saved.
-    ie = ie.rename(None).detach()
-    avg_ce = avg_ce.rename(None).detach()
+    ie = ie.detach()
+    avg_ce = avg_ce.detach()
 
     torch.save(ie, interventional_expectations_output_path)
     torch.save(avg_ce, average_causal_effects_output_path)

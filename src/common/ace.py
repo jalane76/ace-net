@@ -12,22 +12,17 @@ def average_causal_effect(interventional_expectation):
     ''' Calculates the average causal effect from the interventional expectations.
 
         :param interventional_expectation: The interventional expectations on a given model and statistics.
-        :type interventional_expectation: Named torch.Tensor with dimension names ('X', 'Y', 'I')
+        :type interventional_expectation: torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values).
 
         :return: A tensor containing the average causal effects.
-        :rtype: Named torch.Tensor with the same shape as the input tensor and dimension names ('X', 'Y', 'I')
+        :rtype: torch.Tensor with the same shape as the input tensor.
     '''
-    size_x = interventional_expectation.size('X')
-    size_y = interventional_expectation.size('Y')
-    names = interventional_expectation.names
-    interventional_expectation = interventional_expectation.rename(None)
+    size_x, size_y, size_i = interventional_expectation.shape
 
     result = torch.zeros_like(interventional_expectation)
     for x in range(size_x):
         for y in range(size_y):
             result[x, y, :] = interventional_expectation[x, y, :] - torch.mean(interventional_expectation[x, y, :])
-
-    interventional_expectation = interventional_expectation.rename(*names)
 
     return result
 
@@ -48,7 +43,7 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         :type method" string, optional
 
         :return: A tensor containing the interventional expectations
-        :rtype: Named torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values) and dimension names ('X', 'Y', 'I')
+        :rtype: torch.Tensor with shape (number_of_inputs_to_model, number_of_outputs_from_model, number_of_interventional_values).
     '''
 
     # Make sure all tensors are on the GPU if it's available, otherwise CPU
@@ -69,7 +64,7 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
     flat_output = output.reshape(-1)
     # TODO: remove after debug.
     result_shape = flat_mean.shape + flat_output.shape + interventions.shape
-    result = torch.zeros(result_shape, names=('X', 'Y', 'I'))
+    result = torch.zeros(result_shape)
     result = result.to(device)
 
     if method == 'hessian_full':
@@ -81,15 +76,17 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
 
 def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
 
-    with tqdm(total=result.size('X') * result.size('Y') * result.size('I'), disable=not progress) as pbar:
-        for x in range(result.size('X')):
+    size_x, size_y, size_i = result.shape
+
+    with tqdm(total=size_x * size_y * size_i, disable=not progress) as pbar:
+        for x in range(size_x):
             cov_row = cov[x, :].clone()  # hold out the covariance row we'll intervene upon
             cov_col = cov[:, x].clone()  # hold out the covariance col we'll intervene upon
             cov[x, :] = 0.0  # zero covariances for intervened input value
             cov[:, x] = 0.0
             
             
-            for i in range(result.size('I')):
+            for i in range(size_i):
                 inp = mean.clone().detach()   # clone so we don't change the original mean
 
                 inp_shape = inp.shape  # flatten to iterate through interventions
@@ -106,7 +103,7 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
                 h = hessian(output, inp)
                 h = h.reshape(output.shape + cov.shape)
                 
-                for y in range(result.size('Y')):
+                for y in range(size_y):
                     result[x, y, i] = output.reshape(-1)[y] + 0.5 * torch.trace(torch.matmul(h[0, y], cov))
                     pbar.update(1)
             
@@ -117,10 +114,12 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
 
 def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
 
-    with tqdm(total=result.size('X') * result.size('Y') * result.size('I'), disable=not progress) as pbar:
-        for y in range(result.size('Y')):
-            for x in range(result.size('X')):
-                for i in range(result.size('I')):
+    size_x, size_y, size_i = result.shape
+
+    with tqdm(total=size_x * size_y * size_i, disable=not progress) as pbar:
+        for y in range(size_y):
+            for x in range(size_x):
+                for i in range(size_i):
                     inp = mean.clone().detach()   # clone so we don't change the original mean
 
                     inp_shape = inp.shape  # flatten to iterate through interventions
@@ -144,7 +143,7 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
 
                     grads = autograd.grad(output, inp, grad_outputs=grad_mask, retain_graph=True, create_graph=True)
 
-                    for xx in range(result.size('X')):
+                    for xx in range(size_x):
                         if xx == x:
                             continue
                     
@@ -168,8 +167,11 @@ def __ie_hessian_diag(model, mean, cov, interventions, result, progress=False):
     return result
 
 def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progress=False):
-    with tqdm(total=result.size('X') * result.size('I'), disable=not progress) as pbar:
-        for x in range(result.size('X')):
+
+    size_x, size_y, size_i = result.shape
+
+    with tqdm(total=size_x * size_i, disable=not progress) as pbar:
+        for x in range(size_x):
             mean_shape = mean.shape  # flatten to iterate through interventions
             mean = mean.reshape(-1)
 
@@ -187,7 +189,7 @@ def __ie_approx(model, mean, cov, interventions, result, epsilon=0.000001, progr
 
             v = epsilon * e.sqrt() * v
             
-            for i in range(result.size('I')):
+            for i in range(size_i):
                 mean[x] = interventions[i]
 
                 v1 = mean - v

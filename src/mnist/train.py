@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from art.classifiers import PyTorchClassifier
 import click
-import inspect
 import json
 import mnist.models
 import numpy as np
@@ -10,6 +9,7 @@ import sys
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from common.utils import get_model_from_module
 
 @click.command()
 @click.argument('x_filepath', type=click.Path(exists=True))
@@ -37,14 +37,7 @@ def main(x_filepath, y_filepath, clip_values_filepath, model_class_name, model_o
         clip_values = json.load(f)
     clip_values = (clip_values.get('min_pixel_value'), clip_values.get('max_pixel_value'))
 
-    model = None
-    for name, cls in inspect.getmembers(mnist.models):
-        if name == '__builtins__':
-            continue
-        print('{}: {}'.format(name, cls))
-        if name == model_class_name:
-            model = cls()
-            break
+    model = get_model_from_module(mnist.models, model_class_name)
 
     if not model:
         sys.exit("Could not load provided model {}".format(model_class_name))

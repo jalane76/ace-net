@@ -1,8 +1,8 @@
-md5: a8d8e2ad77f19f2bbdc50832d49b23bd
+md5: e16d0a28eef0a70240b33c380dfc8b5d
 cmd: python train.py /workspace/data/mnist/processed/x_train.pt /workspace/data/mnist/processed/y_train.pt
   /workspace/data/mnist/processed/clip_values.json Mnist3LayerLinearModel /workspace/data/mnist/models/model_3_layer_linear.pt
 deps:
-- md5: 650ccc63b9c80c430e4c4bfa14225013
+- md5: b795a2bba7957d4b77956bb5e2f43052
   path: train.py
 - md5: 3a742b29ff186247cddcd9007b17324e
   path: ../../data/mnist/processed/x_train.pt
@@ -11,5 +11,5 @@ deps:
 - md5: 1d94e4d40bb37f7efeef4bc6c2849106
   path: ../../data/mnist/processed/clip_values.json
 outs:
-- md5: f8e7c47ad9fe3c2325731e5b7afbb315
+- md5: f276d85927572bf442873d258d260f23
   path: ../../data/mnist/models/model_3_layer_linear.pt

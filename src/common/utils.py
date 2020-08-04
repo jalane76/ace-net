@@ -1,3 +1,4 @@
+import inspect
 import torch
 
 # Math
@@ -14,3 +15,14 @@ def jacobian(y, x, create_graph=False):
                                                                                                       
 def hessian(y, x):
     return jacobian(jacobian(y, x, create_graph=True), x)
+
+
+# Module manipulation
+
+def get_model_from_module(module, model_name):
+    model = None
+    for name, cls in inspect.getmembers(module, inspect.isclass):
+        if name == model_name:
+            model = cls()
+            break
+    return model

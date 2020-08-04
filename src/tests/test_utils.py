@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
-from utils.utils import jacobian
-from utils.utils import hessian
+from common.utils import jacobian
+from common.utils import hessian
 
 import torch
 import numpy as np

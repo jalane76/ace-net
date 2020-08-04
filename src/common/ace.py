@@ -52,7 +52,8 @@ def interventional_expectation(model, mean, cov, interventions, epsilon=0.000001
         cuda_idx = torch.cuda.current_device()
         device = torch.device('cuda:{}'.format(cuda_idx))
     
-    model = model.to(device)
+    if isinstance(model, nn.Module):
+        model = model.to(device)
     mean = mean.to(device)
     cov = cov.to(device)
     interventions = interventions.to(device)
@@ -104,6 +105,7 @@ def __ie_hessian_full(model, mean, cov, interventions, result, progress=False):
                 h = h.reshape(output.shape + cov.shape)
                 
                 for y in range(size_y):
+                      # TODO: the matrix multiplication below may fail in a more general setting, double-check
                     result[x, y, i] = output.reshape(-1)[y] + 0.5 * torch.trace(torch.matmul(h[0, y], cov))
                     pbar.update(1)
             

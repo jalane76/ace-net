@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-from model_analysis.ace import interventional_expectation
+from common.ace import interventional_expectation
 
 import torch
 import numpy as np
@@ -38,6 +38,6 @@ approximation = interventional_expectation(f, mean, cov, interventions, method='
 print('approximation: \n{}\n\n'.format(approximation))
 print('*****************************************************************************************************')
 
-print('hessian_full == hessian_diag: {}\n'.format(torch.allclose(hessian_full.rename(None), hessian_diag.rename(None))))
-print('hessian_diag == approximation: {}\n'.format(torch.allclose(hessian_diag.rename(None), approximation.rename(None))))
-print('approximation == hessian_full: {}\n'.format(torch.allclose(approximation.rename(None), hessian_full.rename(None))))
+print('hessian_full == hessian_diag: {}\n'.format(torch.allclose(hessian_full, hessian_diag)))
+print('hessian_diag == approximation: {}\n'.format(torch.allclose(hessian_diag, approximation)))
+print('approximation == hessian_full: {}\n'.format(torch.allclose(approximation, hessian_full)))

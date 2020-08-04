@@ -1,22 +1,19 @@
-md5: a67af457a482dbcd985c8239519b8181
-cmd: python predict_mnist_benign.py /workspace/data/processed/mnist/x_test.pt /workspace/data/processed/mnist/y_test.pt
-  /workspace/data/processed/mnist/clip_values.json /workspace/data/models/mnist/mnist_art_model.pt
-  /workspace/data/models/mnist/mnist_art_optimizer.pt /workspace/data/results/mnist/mnist_benign_metrics.json
-wdir: ../models
+md5: ed4e6d94427341737021ed939d8ee999
+cmd: python predict.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
+  /workspace/data/mnist/processed/clip_values.json /workspace/data/mnist/models/model_3_layer_linear.pt
+  /workspace/data/mnist/results/benign_metrics.json
 deps:
-- md5: 173a0f2b276f3d7ccc521aaebe1f871a
-  path: predict_mnist_benign.py
+- md5: ee0a76df10898a62b75ae43149802c56
+  path: predict.py
 - md5: 376763bbc596617953cfc95c7fe34c7d
-  path: ../../data/processed/mnist/x_test.pt
+  path: ../../data/mnist/processed/x_test.pt
 - md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
-  path: ../../data/processed/mnist/y_test.pt
+  path: ../../data/mnist/processed/y_test.pt
 - md5: 1d94e4d40bb37f7efeef4bc6c2849106
-  path: ../../data/processed/mnist/clip_values.json
-- md5: 1171ae33ed4b1ba3898205d11372f3f8
-  path: ../../data/models/mnist/mnist_art_model.pt
-- md5: b5f541e4aa430ef7a286c03fccddfb87
-  path: ../../data/models/mnist/mnist_art_optimizer.pt
+  path: ../../data/mnist/processed/clip_values.json
+- md5: f276d85927572bf442873d258d260f23
+  path: ../../data/mnist/models/model_3_layer_linear.pt
 outs:
-- md5: 0233dffd8934fc9018a91e960c6a971e
-  path: ../../data/results/mnist/mnist_benign_metrics.json
+- md5: 1a8988f5c40281444de1eed2c867edbd
+  path: ../../data/mnist/results/benign_metrics.json
   metric: true

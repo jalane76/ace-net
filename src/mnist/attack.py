@@ -3,7 +3,7 @@ from art.attacks import FastGradientMethod
 from art.classifiers import PyTorchClassifier
 import click
 import json
-from models.mnist_model import MnistModel
+import mnist.models
 import numpy as np
 import os
 import torch
@@ -15,10 +15,9 @@ import torch.nn.functional as F
 @click.argument('y_test_filepath', type=click.Path(exists=True))
 @click.argument('clip_values_filepath', type=click.Path(exists=True))
 @click.argument('model_filepath', type=click.Path(exists=True))
-@click.argument('optimizer_filepath', type=click.Path(exists=True))
 @click.argument('x_test_adv_output_path', type=click.Path())
 @click.argument('metrics_output_path', type=click.Path())
-def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath, optimizer_filepath, x_test_adv_output_path, metrics_output_path):
+def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath, x_test_adv_output_path, metrics_output_path):
 
     seed = 45616451
     np.random.seed(seed)
@@ -33,20 +32,17 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
     x_test = x_test.reshape(x_test.shape[0], -1)
 
     model = torch.load(model_filepath)
-    optimizer = torch.load(optimizer_filepath)
 
     clip_values = {}
     with open(clip_values_filepath, 'r') as f:
         clip_values = json.load(f)
     clip_values = (clip_values.get('min_pixel_value'), clip_values.get('max_pixel_value'))
-    
-    criterion = nn.CrossEntropyLoss()
 
     classifier = PyTorchClassifier(
         model=model,
         clip_values=clip_values,
-        loss=criterion,
-        optimizer=optimizer,
+        loss=model.criterion,
+        optimizer=model.optimizer,
         input_shape=(1, 28, 28),
         nb_classes=10
     )

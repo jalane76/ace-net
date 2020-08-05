@@ -1,0 +1,21 @@
+md5: 80a97fd655561353f03c5ed28dea91d2
+cmd: python attack.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
+  /workspace/data/mnist/processed/clip_values.json /workspace/data/mnist/models/model_3_layer_linear.pt
+  /workspace/data/mnist/processed/x_test_adv.pt /workspace/data/mnist/results/attack_metrics.json
+deps:
+- md5: 763f0d72a06e0f423b15ba4fb0c9d881
+  path: attack.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/mnist/processed/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/mnist/processed/y_test.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/mnist/processed/clip_values.json
+- md5: f276d85927572bf442873d258d260f23
+  path: ../../data/mnist/models/model_3_layer_linear.pt
+outs:
+- md5: d883e43939cad23dc0e197d12e1e5125
+  path: ../../data/mnist/processed/x_test_adv.pt
+- md5: 8963b2e1db779dfb4e15faba16a55006
+  path: ../../data/mnist/results/attack_metrics.json
+  metric: true

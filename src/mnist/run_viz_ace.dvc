@@ -1,10 +1,10 @@
-md5: 403ba0db71db91a0ba918a3be62c4606
-cmd: python /workspace/src/mnist/viz_mnist_ace.py /workspace/data/mnist/results/average_causal_effects.pt
+md5: bd0bffd14592aafadffa09e10196e921
+cmd: python /workspace/src/mnist/viz_ace.py /workspace/data/mnist/results/average_causal_effects.pt
   /workspace/data/mnist/results/interventions.pt /workspace/data/mnist/processed/x_train.pt
   /workspace/data/mnist/processed/y_train.pt /workspace/data/mnist/viz/average_causal_effects.png
 deps:
 - md5: 75f302870ad25a30101b3bd6de9ddcec
-  path: viz_mnist_ace.py
+  path: viz_ace.py
 - md5: 33aafaa2780dec6899395f8bf686d976
   path: ../../data/mnist/results/average_causal_effects.pt
 - md5: d6c7505bec4083725c330ab1a5e581b4

@@ -1,10 +1,10 @@
-md5: c913ef3f6a09187acdf7b549a9799704
-cmd: python /workspace/src/mnist/viz_mnist_ie.py /workspace/data/mnist/results/interventional_expectations.pt
+md5: 8b32f54f7ed2c2c4844ec30ce72bd8c7
+cmd: python /workspace/src/mnist/viz_ie.py /workspace/data/mnist/results/interventional_expectations.pt
   /workspace/data/mnist/results/interventions.pt /workspace/data/mnist/processed/x_train.pt
-  /workspace/data/processed/mnist/y_train.pt /workspace/data/mnist/viz/interventional_expectation.png
+  /workspace/data/mnist/processed/y_train.pt /workspace/data/mnist/viz/interventional_expectation.png
 deps:
 - md5: f10be7664242524f54a7cba2f8be20f6
-  path: viz_mnist_ie.py
+  path: viz_ie.py
 - md5: ea716887569b3419f7afb6bbee8f476c
   path: ../../data/mnist/results/interventional_expectations.pt
 - md5: d6c7505bec4083725c330ab1a5e581b4

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import click
 import json
-from models.mnist_model import MnistModel
-import model_analysis.ace as ace
+import mnist.models
+import common.ace as ace
 import numpy as np
 import os
 import torch

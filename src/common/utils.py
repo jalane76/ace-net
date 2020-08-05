@@ -1,7 +1,6 @@
 import inspect
+import numpy as np
 import torch
-
-# Math
 
 def jacobian(y, x, create_graph=False):
     jac = []
@@ -16,9 +15,6 @@ def jacobian(y, x, create_graph=False):
 def hessian(y, x):
     return jacobian(jacobian(y, x, create_graph=True), x)
 
-
-# Module manipulation
-
 def get_model_from_module(module, model_name):
     model = None
     for name, cls in inspect.getmembers(module, inspect.isclass):
@@ -26,3 +22,10 @@ def get_model_from_module(module, model_name):
             model = cls()
             break
     return model
+
+def one_hot_to_num(one_hots):
+    return np.argmax(one_hots, axis=1)
+
+def num_to_one_hot(nums, vec_size):
+    res = np.eye(vec_size)[np.array(nums).reshape(-1)]
+    return res.reshape(list(nums.shape)+[vec_size])

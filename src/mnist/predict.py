@@ -5,10 +5,11 @@ import json
 import mnist.models
 import numpy as np
 import os
+import sklearn.metrics as metrics
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from common.utils import get_model_from_module
+import common.utils as utils
 
 @click.command()
 @click.argument('x_filepath', type=click.Path(exists=True))
@@ -47,8 +48,13 @@ def main(x_filepath, y_filepath, clip_values_filepath, trained_model_filepath, m
 
     # Evaluate the classifier on benign data
     predictions = classifier.predict(x)
+
+    # Convert one-hots to numbers for metrics
+    y = utils.one_hot_to_num(y)
+    predictions = utils.one_hot_to_num(predictions)
     accuracy = {
-        'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y, axis=1)) / len(y)
+        'Accuracy': metrics.accuracy_score(y, predictions),
+        'Confusion Matrix': metrics.confusion_matrix(y, predictions).tolist(),
     }
 
     # Save data    

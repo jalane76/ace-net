@@ -1,0 +1,11 @@
+md5: 717a43501a7bf36075775816547e4958
+cmd: python /workspace/src/common/viz_prediction_metrics.py /workspace/data/mnist/results/benign_metrics.json
+  /workspace/data/mnist/viz/benign_metrics.png
+deps:
+- md5: 05deaf34a64dbf5fe2455c3973aa6cbf
+  path: ../common/viz_prediction_metrics.py
+- md5: d316aef92142647968a2b3bcaf9d7134
+  path: ../../data/mnist/results/benign_metrics.json
+outs:
+- md5: e237ccfa9ee89133056891011f677efa
+  path: ../../data/mnist/viz/benign_metrics.png

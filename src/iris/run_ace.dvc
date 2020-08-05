@@ -1,0 +1,23 @@
+md5: 1a5ae56dd57475ff9d9ae769a4db6f9d
+cmd: python /workspace/src/iris/average_causal_effects.py /workspace/data/iris/models/iris_double_model_8
+  /workspace/data/iris/processed/covariance.pt /workspace/data/iris/processed/means.pt
+  /workspace/data/iris/results/interventional_expectations.pt /workspace/data/iris/results/average_causal_effects.pt
+  /workspace/data/iris/results/interventions.pt
+deps:
+- md5: 40952cc0ac399e63b303861a8086b733
+  path: average_causal_effects.py
+- md5: 0bee10ce36549090445736a59045ac7d
+  path: ../common/ace.py
+- md5: 64d751ae8eef6462cf04a8204d43e8dc
+  path: ../../data/iris/models/iris_double_model_8
+- md5: 11575f3b66efe4b0c118217e7f87fa9f
+  path: ../../data/iris/processed/covariance.pt
+- md5: 9633f00afbcf413266b9f4e5c45c9979
+  path: ../../data/iris/processed/means.pt
+outs:
+- md5: a8d1d61ce56e87a875b41bf19d280e34
+  path: ../../data/iris/results/interventional_expectations.pt
+- md5: b8f7bc815b60641775778bc67ed10c0d
+  path: ../../data/iris/results/average_causal_effects.pt
+- md5: 2c31abcb0d8c34042b306816896ba07a
+  path: ../../data/iris/results/interventions.pt

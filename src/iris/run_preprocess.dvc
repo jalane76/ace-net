@@ -1,0 +1,18 @@
+md5: 980b889f85f964ffc896910e79f42940
+cmd: python /workspace/src/iris/preprocess.py /workspace/data/iris/raw/Iris_Dataset.csv
+  /workspace/data/iris/processed/x_train.pt /workspace/data/iris/processed/y_train.pt
+  /workspace/data/iris/processed/covariance.pt /workspace/data/iris/processed/means.pt
+deps:
+- md5: 21215c689e5f31d89fb00bb0b432f263
+  path: ../../data/iris/raw/Iris_Dataset.csv
+- md5: c95f43ca057e68dd5ddb32790d0abd7e
+  path: preprocess.py
+outs:
+- md5: 97f96bda2282218421772283a83cf93f
+  path: ../../data/iris/processed/x_train.pt
+- md5: a1b0eb03121144554cfae01cded0aca8
+  path: ../../data/iris/processed/y_train.pt
+- md5: 11575f3b66efe4b0c118217e7f87fa9f
+  path: ../../data/iris/processed/covariance.pt
+- md5: 9633f00afbcf413266b9f4e5c45c9979
+  path: ../../data/iris/processed/means.pt

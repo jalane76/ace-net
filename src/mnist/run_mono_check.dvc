@@ -1,0 +1,12 @@
+md5: aaec32cf3b12ad8aa91a4c1f88c0e857
+cmd: python /workspace/src/common/mono_check.py /workspace/data/mnist/results/average_causal_effects.pt
+  /workspace/data/mnist/results/mono_check_metrics.json
+deps:
+- md5: aca05615ecffa8232a4d20e835374242
+  path: ../common/mono_check.py
+- md5: 33aafaa2780dec6899395f8bf686d976
+  path: ../../data/mnist/results/average_causal_effects.pt
+outs:
+- md5: 17b07407bbebd86437dda4a54179411e
+  path: ../../data/mnist/results/mono_check_metrics.json
+  metric: true

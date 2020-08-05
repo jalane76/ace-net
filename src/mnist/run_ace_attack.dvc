@@ -1,0 +1,28 @@
+md5: c83533f9b29644d40d6f8bf882cd0922
+cmd: python ace_attack.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
+  /workspace/data/mnist/processed/clip_values.json /workspace/data/mnist/models/model_3_layer_linear.pt
+  /workspace/data/mnist/results/average_causal_effects.pt  /workspace/data/mnist/results/interventions.pt
+  /workspace/data/mnist/results/ace_attacks.pt /workspace/data/mnist/results/ace_attack_metrics.json
+deps:
+- md5: 2998ff11bf74b3eb6460b6cd2d54ac6f
+  path: ace_attack.py
+- md5: 7c1ec357c936cdaf61856d03ec8312a1
+  path: ../common/ace_attack.py
+- md5: 376763bbc596617953cfc95c7fe34c7d
+  path: ../../data/mnist/processed/x_test.pt
+- md5: 9cef4d53d6692ebcfb2573c9eea5ca2c
+  path: ../../data/mnist/processed/y_test.pt
+- md5: 1d94e4d40bb37f7efeef4bc6c2849106
+  path: ../../data/mnist/processed/clip_values.json
+- md5: f276d85927572bf442873d258d260f23
+  path: ../../data/mnist/models/model_3_layer_linear.pt
+- md5: 33aafaa2780dec6899395f8bf686d976
+  path: ../../data/mnist/results/average_causal_effects.pt
+- md5: d6c7505bec4083725c330ab1a5e581b4
+  path: ../../data/mnist/results/interventions.pt
+outs:
+- md5: 9e25f45bc5dc37eae2ccfd7213403b10
+  path: ../../data/mnist/results/ace_attacks.pt
+- md5: 7bfb56c45b17f7fce2e709f9d693bb3d
+  path: ../../data/mnist/results/ace_attack_metrics.json
+  metric: true

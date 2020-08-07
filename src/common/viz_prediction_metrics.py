@@ -37,7 +37,7 @@ def main(metrics_filepath, title, normalize, output_path):
 
     target_names = [str(t) for t in range(10)]
     tick_marks = np.arange(len(target_names))
-    plt.xticks(tick_marks, target_names)
+    plt.xticks(tick_marks, target_names, rotation=45)
     plt.yticks(tick_marks, target_names)
 
     if normalize:

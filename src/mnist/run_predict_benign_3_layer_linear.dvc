@@ -1,7 +1,7 @@
-md5: 6154fd6575427344a275bc8300519c29
+md5: 0ee7f4001cecdc1d7a9467c56f4c3e14
 cmd: python predict.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
   /workspace/data/mnist/processed/clip_values.json /workspace/data/mnist/models/model_3_layer_linear.pt
-  /workspace/data/mnist/results/benign_metrics.json
+  /workspace/data/mnist/results/benign_3_layer_linear_metrics.json
 deps:
 - md5: 365ba140ed7b635874ead9045e6ed5da
   path: predict.py
@@ -15,5 +15,5 @@ deps:
   path: ../../data/mnist/models/model_3_layer_linear.pt
 outs:
 - md5: d316aef92142647968a2b3bcaf9d7134
-  path: ../../data/mnist/results/benign_metrics.json
+  path: ../../data/mnist/results/benign_3_layer_linear_metrics.json
   metric: true

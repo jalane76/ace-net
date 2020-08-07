@@ -1,0 +1,11 @@
+md5: cc4d4dff270ae082d2a9a1dd2bb0e73e
+cmd: python /workspace/src/common/viz_prediction_metrics.py --title="3LL Model Confusion
+  Matrix" /workspace/data/mnist/results/benign_3_layer_linear_metrics.json /workspace/data/mnist/viz/benign_3_layer_linear_metrics.png
+deps:
+- md5: 05deaf34a64dbf5fe2455c3973aa6cbf
+  path: ../common/viz_prediction_metrics.py
+- md5: d316aef92142647968a2b3bcaf9d7134
+  path: ../../data/mnist/results/benign_3_layer_linear_metrics.json
+outs:
+- md5: d2c438c0e7e30ef7d2e11859d03303b0
+  path: ../../data/mnist/viz/benign_3_layer_linear_metrics.png

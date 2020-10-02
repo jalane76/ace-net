@@ -1,0 +1,12 @@
+md5: 9356190e7ce7f50384ca897824db4c3c
+cmd: python /workspace/src/common/viz_prediction_metrics.py --title="3LL Model Confusion
+  Matrix - ACE Attack" /workspace/data/mnist/results/ace_attack_on_3_layer_linear_metrics.json
+  /workspace/data/mnist/viz/ace_attack_on_3_layer_linear_metrics.png
+deps:
+- md5: 2b3a61ca1252e26c8a30f4edbab00b80
+  path: ../common/viz_prediction_metrics.py
+- md5: f55f20d1b34c1752a05e84d54c6d2013
+  path: ../../data/mnist/results/ace_attack_on_3_layer_linear_metrics.json
+outs:
+- md5: 14e55894963bd16d734dcb0098e64752
+  path: ../../data/mnist/viz/ace_attack_on_3_layer_linear_metrics.png

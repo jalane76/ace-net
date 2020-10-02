@@ -17,9 +17,8 @@ import torch.nn.functional as F
 @click.argument('model_filepath', type=click.Path(exists=True))
 @click.argument('ace_filepath', type=click.Path(exists=True))
 @click.argument('interventions_filepath', type=click.Path(exists=True))
-@click.argument('attacks_output_filepath', type=click.Path())
-@click.argument('metrics_output_path', type=click.Path())
-def main(x_filepath, y_filepath, clip_values_filepath, model_filepath, ace_filepath, interventions_filepath, attacks_output_filepath, metrics_output_path):
+@click.argument('x_adv_output_path', type=click.Path())
+def main(x_filepath, y_filepath, clip_values_filepath, model_filepath, ace_filepath, interventions_filepath, x_adv_output_path):
 
     seed = 45616451
     np.random.seed(seed)
@@ -55,28 +54,10 @@ def main(x_filepath, y_filepath, clip_values_filepath, model_filepath, ace_filep
 
     # Generate attacks
     x_adv = ace_attack(ace, interventions, torch.from_numpy(x), target_classes=y_adv, norm=2, budget=5.0)
-    y_adv = y_adv.numpy()
-
-    # Evaluate the classifier on adversarial data
-    predictions = classifier.predict(x_adv)
-
-    count_dict = {}
-    for c in range(9):
-        count = np.sum(np.argmax(predictions, axis=1) == c)
-        count_dict[str(c)] = str(count)
-
-    accuracy = {
-        'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y, axis=1)) / len(y),
-        'Target Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_adv, axis=1)) / len(y_adv),
-        'Class Counts': count_dict
-    }
 
     # Unflatten for saving
     x_adv = x_adv.reshape(x_shape)
-    torch.save(x_adv, attacks_output_filepath)
-    
-    with open(metrics_output_path, 'w') as f:
-        json.dump(accuracy, f)
+    torch.save(x_adv, x_adv_output_path)
 
 if __name__ == '__main__':
     main()

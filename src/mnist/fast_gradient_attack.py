@@ -11,25 +11,24 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 @click.command()
-@click.argument('x_test_filepath', type=click.Path(exists=True))
-@click.argument('y_test_filepath', type=click.Path(exists=True))
+@click.argument('x_filepath', type=click.Path(exists=True))
+@click.argument('y_filepath', type=click.Path(exists=True))
 @click.argument('clip_values_filepath', type=click.Path(exists=True))
 @click.argument('model_filepath', type=click.Path(exists=True))
-@click.argument('x_test_adv_output_path', type=click.Path())
-@click.argument('metrics_output_path', type=click.Path())
-def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath, x_test_adv_output_path, metrics_output_path):
+@click.argument('x_adv_output_path', type=click.Path())
+def main(x_filepath, y_filepath, clip_values_filepath, model_filepath, x_adv_output_path):
 
     seed = 45616451
     np.random.seed(seed)
     torch.manual_seed(seed)
 
     # Load data
-    x_test = torch.load(x_test_filepath)
-    x_test_shape = x_test.shape
-    y_test = torch.load(y_test_filepath)
+    x = torch.load(x_filepath)
+    x_shape = x.shape
+    y = torch.load(y_filepath)
 
     # Flatten test set
-    x_test = x_test.reshape(x_test.shape[0], -1)
+    x = x.reshape(x.shape[0], -1)
 
     model = torch.load(model_filepath)
 
@@ -49,20 +48,11 @@ def main(x_test_filepath, y_test_filepath, clip_values_filepath, model_filepath,
 
     # Generate attacks
     attack = FastGradientMethod(classifier=classifier, eps=0.2)
-    x_test_adv = attack.generate(x=x_test)
-
-    # Evaluate the classifier on adversarial data
-    predictions = classifier.predict(x_test_adv)
-    accuracy = {
-        'Accuracy': np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) / len(y_test)
-    }
+    x_adv = attack.generate(x=x)
 
     # Reshape adversarial examples back to original test data shape
-    x_test_adv = x_test_adv.reshape(x_test_shape)
-    torch.save(x_test_adv, x_test_adv_output_path)
-    
-    with open(metrics_output_path, 'w') as f:
-        json.dump(accuracy, f)
+    x_adv = x_adv.reshape(x_shape)
+    torch.save(x_adv, x_adv_output_path)
 
 if __name__ == '__main__':
     main()

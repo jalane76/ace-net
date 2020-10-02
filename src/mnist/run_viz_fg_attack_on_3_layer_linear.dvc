@@ -1,0 +1,12 @@
+md5: 9b0010d048ccf8046081d4ed1e62bef9
+cmd: python /workspace/src/common/viz_prediction_metrics.py --title="3LL Model Confusion
+  Matrix - Fast Gradient Attack" /workspace/data/mnist/results/fg_attack_on_3_layer_linear_metrics.json
+  /workspace/data/mnist/viz/fg_attack_on_3_layer_linear_metrics.png
+deps:
+- md5: 2b3a61ca1252e26c8a30f4edbab00b80
+  path: ../common/viz_prediction_metrics.py
+- md5: 79570413a44de658f1a8788c062279c5
+  path: ../../data/mnist/results/fg_attack_on_3_layer_linear_metrics.json
+outs:
+- md5: ba406b20d062733615e4615558345506
+  path: ../../data/mnist/viz/fg_attack_on_3_layer_linear_metrics.png

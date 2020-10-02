@@ -1,10 +1,10 @@
-md5: ba7feca6beb80e17f37d17bd88db573c
-cmd: python attack.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
+md5: 2cb7e3f29cb0092f851fe6126669e03e
+cmd: python fast_gradient_attack.py /workspace/data/mnist/processed/x_test.pt /workspace/data/mnist/processed/y_test.pt
   /workspace/data/mnist/processed/clip_values.json /workspace/data/mnist/models/model_3_layer_linear.pt
   /workspace/data/mnist/results/x_fg_attack_on_3_layer_linear.pt
 deps:
 - md5: 57e812c3523a5a816ece3571815ed24d
-  path: attack.py
+  path: fast_gradient_attack.py
 - md5: 376763bbc596617953cfc95c7fe34c7d
   path: ../../data/mnist/processed/x_test.pt
 - md5: 9cef4d53d6692ebcfb2573c9eea5ca2c

@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
+
 class Mnist3LayerLinearModel(nn.Module):
     def __init__(self):
         super(Mnist3LayerLinearModel, self).__init__()

@@ -1,0 +1,7 @@
+{
+    "inter_map_filepath": "/data/mnist/results/3_layer_linear/ace/average_causal_effects.pt",
+    "interventions_filepath": "/data/mnist/results/3_layer_linear/ace/interventions.pt",
+    "x_train_filepath": "/data/mnist/processed/x_train.pt",
+    "y_train_filepath": "/data/mnist/processed/y_train.pt",
+    "output_path": "/data/mnist/results/3_layer_linear/ace/average_causal_effects.png"
+}

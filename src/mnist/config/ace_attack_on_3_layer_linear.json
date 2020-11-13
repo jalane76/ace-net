@@ -1,0 +1,10 @@
+{
+    "x_filepath": "/data/mnist/processed/x_test.pt",
+    "y_filepath": "/data/mnist/processed/y_test.pt",
+    "clip_values_filepath": "/data/mnist/processed/clip_values.json",
+    "model_filepath": "/data/mnist/models/3_layer_linear.pt",
+    "ace_filepath": "/data/mnist/results/average_causal_effects.pt",
+    "interventions_filepath": "/data/mnist/results/interventions.pt",
+    "x_adv_output_path": "/data/mnist/results/3_layer_linear/ace_attack/x.pt",
+    "seed": 45616451
+}

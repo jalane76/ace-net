@@ -1,0 +1,8 @@
+{
+    "input_filepath": "/data/iris/raw/Iris_Dataset.csv",
+    "x_train_output_path": "/data/iris/processed/x_train.pt",
+    "y_train_output_path": "/data/iris/processed/y_train.pt",
+    "covariance_output_path": "/data/iris/processed/covariance.pt",
+    "means_output_path": "/data/iris/processed/means.pt",
+    "seed": 1
+}

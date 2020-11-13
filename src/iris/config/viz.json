@@ -1,0 +1,5 @@
+{
+    "ace_filepath": "/data/iris/results/iris_double_model_8/average_causal_effects.pt",
+    "interventions_filepath": "/data/iris/results/iris_double_model_8/interventions.pt",
+    "output_path": "/data/iris/viz/"
+}

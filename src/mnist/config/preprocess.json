@@ -1,0 +1,10 @@
+{
+    "x_train_output_path": "/data/mnist/processed/x_train.pt",
+    "y_train_output_path": "/data/mnist/processed/y_train.pt",
+    "x_test_output_path": "/data/mnist/processed/x_test.pt",
+    "y_test_output_path": "/data/mnist/processed/y_test.pt",
+    "covariance_output_path": "/data/mnist/processed/covariance.pt",
+    "means_output_path": "/data/mnist/processed/means.pt",
+    "clip_values_output_path": "/data/mnist/processed/clip_values.json",
+    "seed": 45616451
+}

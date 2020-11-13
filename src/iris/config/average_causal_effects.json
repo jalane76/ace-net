@@ -1,0 +1,11 @@
+{
+    "model_filepath": "/data/iris/models/iris_double_model_8",
+    "covariance_filepath": "/data/iris/processed/covariance.pt",
+    "means_filepath": "/data/iris/processed/means.pt",
+    "interventional_expectations_output_path": "/data/iris/results/iris_double_model_8/interventional_expectations.pt",
+    "average_causal_effects_output_path": "/data/iris/results/iris_double_model_8/average_causal_effects.pt",
+    "interventions_output_path": "/data/iris/results/iris_double_model_8/interventions.pt",
+    "epsilon": 0.000001,
+    "method": "hessian_diag",
+    "show_progress": true
+}

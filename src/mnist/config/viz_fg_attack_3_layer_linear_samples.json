@@ -1,0 +1,10 @@
+{
+    "x_filepath": "/data/mnist/processed/x_test.pt",
+    "y_filepath": "/data/mnist/processed/y_test.pt",
+    "x_adv_filepath": "/data/mnist/results/3_layer_linear/fast_gradient_attack/x.pt",
+    "output_path": "/data/mnist/results/3_layer_linear/fast_gradient_attack/samples.png",
+    "image_width": 28,
+    "image_height": 28,
+    "num_classes": 10,
+    "num_samples": 10
+}

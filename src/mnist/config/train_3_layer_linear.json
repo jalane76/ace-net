@@ -1,0 +1,10 @@
+{
+    "x_filepath": "/data/mnist/processed/x_train.pt",
+    "y_filepath": "/data/mnist/processed/y_train.pt",
+    "clip_values_filepath": "/data/mnist/processed/clip_values.json",
+    "model_class_name": "Mnist3LayerLinearModel",
+    "model_output_path": "/data/mnist/models/3_layer_linear.pt",
+    "batch_size": 64,
+    "num_epochs": 15,
+    "seed": 45616451
+}

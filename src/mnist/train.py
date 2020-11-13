@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 from art.classifiers import PyTorchClassifier
 import click
+from common.config import load_config
 import json
+import logging
 import mnist.models
 import numpy as np
 import os
@@ -11,36 +15,38 @@ import torch.nn as nn
 import torch.optim as optim
 from common.utils import get_model_from_module
 
-@click.command()
-@click.argument('x_filepath', type=click.Path(exists=True))
-@click.argument('y_filepath', type=click.Path(exists=True))
-@click.argument('clip_values_filepath', type=click.Path(exists=True))
-@click.argument('model_class_name')
-@click.argument('model_output_path', type=click.Path())
-@click.option('--batch_size', default=64, show_default=True)
-@click.option('--num_epochs', default=15, show_default=True)
-def main(x_filepath, y_filepath, clip_values_filepath, model_class_name, model_output_path, batch_size, num_epochs):
 
-    seed = 45616451
-    np.random.seed(seed)
-    torch.manual_seed(seed)
+@click.command()
+@click.argument("config_filepath", type=click.Path(exists=True))
+def main(config_filepath):
+
+    config = load_config(config_filepath)
+
+    if os.path.isfile(config.model_output_path):
+        click.confirm(f"Overwrite {config.model_output_path}?", abort=True)
+
+    np.random.seed(config.seed)
+    torch.manual_seed(config.seed)
 
     # Load data
-    x = torch.load(x_filepath)
-    y = torch.load(y_filepath)
+    x = torch.load(config.x_filepath)
+    y = torch.load(config.y_filepath)
 
     # Flatten training set
     x = x.reshape(x.shape[0], -1)
-    
-    clip_values = {}
-    with open(clip_values_filepath, 'r') as f:
-        clip_values = json.load(f)
-    clip_values = (clip_values.get('min_pixel_value'), clip_values.get('max_pixel_value'))
 
-    model = get_model_from_module(mnist.models, model_class_name)
+    clip_values = {}
+    with open(config.clip_values_filepath, "r") as f:
+        clip_values = json.load(f)
+    clip_values = (
+        clip_values.get("min_pixel_value"),
+        clip_values.get("max_pixel_value"),
+    )
+
+    model = get_model_from_module(mnist.models, config.model_class_name)
 
     if not model:
-        sys.exit("Could not load provided model {}".format(model_class_name))
+        sys.exit(f"Could not load provided model {config.model_class_name}")
 
     classifier = PyTorchClassifier(
         model=model,
@@ -48,14 +54,15 @@ def main(x_filepath, y_filepath, clip_values_filepath, model_class_name, model_o
         loss=model.criterion,
         optimizer=model.optimizer,
         input_shape=(784),
-        nb_classes=10
-    )
+        nb_classes=10,
+    )  # TODO: move these parameters to config
 
     # Train classifier
-    classifier.fit(x, y, batch_size=batch_size, nb_epochs=num_epochs)
+    classifier.fit(x, y, batch_size=config.batch_size, nb_epochs=config.num_epochs)
 
     # Save data
-    torch.save(model, model_output_path)
+    torch.save(model, config.model_output_path)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

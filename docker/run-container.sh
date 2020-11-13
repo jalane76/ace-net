@@ -1,9 +1,28 @@
 #/bin/bash
 
-# TODO: I should probably modify this to take GPU support as an argument
+GPU_MODE="--runtime=nvidia"
+WORKSPACE_PATH=
+DATA_PATH=
 
-# Run with GPU support
-docker run -d --runtime=nvidia --name=ace-net --volume $ACE_NET_HOME:/workspace --entrypoint= jalane76/ace-net:latest tail -f /dev/null
+usage()
+{
+    echo "Usage: $0 [-c|--cpu] path/to/workspace path/to/data"
+}
 
-# Uncomment to run without GPU support
-# docker run -d --name=ace-net --volume /home/jesse/git/ace-net:/workspace --entrypoint= jalane76/ace-net:latest tail -f /dev/null
+if [ $# -le 1 ]
+then
+    usage
+    exit 1
+fi
+
+if [[ ($1 == "-c") || $1 == "--cpu" ]]
+then
+    GPU_MODE=""
+    WORKSPACE_PATH=$2
+    DATA_PATH=$3
+else
+    WORKSPACE_PATH=$1
+    DATA_PATH=$2
+fi
+
+docker run -d $GPU_MODE --name=ace-net --volume $WORKSPACE_PATH:/workspace --volume $DATA_PATH:/data --entrypoint= jalane76/ace-net:latest tail -f /dev/null

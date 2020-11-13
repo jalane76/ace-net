@@ -1,0 +1,4 @@
+{
+    "ace_filepath": "/data/mnist/results/3_layer_linear/ace/average_causal_effects.pt",
+    "metrics_output_path": "/data/mnist/results/3_layer_linear/mono_check/metrics.json"
+}

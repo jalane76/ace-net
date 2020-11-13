@@ -1,0 +1,6 @@
+{
+    "metrics_filepath": "/data/mnist/results/3_layer_linear/benign/metrics.json",
+    "title": "3LL Model Benign",
+    "normalize": false,
+    "output_path": "/data/mnist/results/3_layer_linear/benign/metrics.png"
+}

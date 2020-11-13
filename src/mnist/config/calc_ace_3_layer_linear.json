@@ -1,0 +1,10 @@
+{
+    "model_filepath": "/data/mnist/models/3_layer_linear.pt",
+    "clip_values_filepath": "/data/mnist/processed/clip_values.json",
+    "covariance_filepath": "/data/mnist/processed/covariance.pt",
+    "means_filepath": "/data/mnist/processed/means.pt",
+    "interventional_expectations_output_path": "/data/mnist/results/3_layer_linear/ace/interventional_expectations.pt",
+    "average_causal_effects_output_path": "/data/mnist/results/3_layer_linear/ace/average_causal_effects.pt",
+    "interventions_output_path": "/data/mnist/results/3_layer_linear/ace/interventions.pt",
+    "seed": 45616451
+}

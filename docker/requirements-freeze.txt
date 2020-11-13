@@ -14,7 +14,7 @@ conda==4.8.3
 conda-build==3.18.11
 conda-package-handling==1.7.0
 configobj==5.0.6
-cryptography==2.9.2
+cryptography==3.2
 cycler==0.10.0
 decorator==4.4.2
 distro==1.5.0

@@ -39,7 +39,7 @@ idna==2.9
 ipython==7.16.1
 ipython-genutils==0.2.0
 jedi==0.17.1
-Jinja2==2.11.2
+Jinja2==2.11.3
 joblib==0.16.0
 jsonpath-ng==1.5.1
 kiwisolver==1.2.0

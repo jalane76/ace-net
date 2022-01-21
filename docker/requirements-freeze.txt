@@ -36,7 +36,7 @@ googleapis-common-protos==1.52.0
 grandalf==0.6
 httplib2==0.18.1
 idna==2.9
-ipython==7.16.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.17.1
 Jinja2==2.11.2
